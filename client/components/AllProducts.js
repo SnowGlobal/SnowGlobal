@@ -3,34 +3,28 @@ import { connect } from "react-redux";
 import { fetchProducts } from "../store/Products";
 
 export class AllProducts extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: [],
-      isLoading: true,
-    };
-  }
-
   componentDidMount() {
     this.props.fetchProducts();
   }
 
   render() {
-    const { products, isLoading } = this.state;
-    if (isLoading) {
-      return <p>Loading...</p>;
-    }
+    console.log(this.props);
+    const products = this.props.products;
     return (
       <div>
         <h1>All Products</h1>
         <ul>
-          {products.map(product => (
-            <li key={product.id}>
-              <h2>{product.name}</h2>
-              <p>{product.description}</p>
-              <p>{product.price}</p>
-            </li>
-          ))}
+          {products.map(product => {
+            return (
+              <li key={product.id}>
+                <h2>{product.name}</h2>
+                <p>{product.description}</p>
+                <p>{product.price}</p>
+                <img src={product.imageUrl} />
+                <p>{product.inventory}</p>
+              </li>
+            );
+          })}
         </ul>
       </div>
     );
@@ -45,7 +39,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProducts: () => dispatch(fetchProducts()),
+    fetchProducts: () => dispatch(fetchProducts()),
   };
 };
 

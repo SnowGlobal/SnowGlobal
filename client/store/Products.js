@@ -22,9 +22,12 @@ export const fetchProducts = () => {
 };
 
 //reducer
-export default function (state = [], action) {
+const initialState = [];
+
+export default function productsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
+      console.log("geting products");
       return action.products;
     default:
       return state;

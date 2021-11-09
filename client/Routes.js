@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import AllProducts from "./components/AllProducts";
 import { Login, Signup } from "./components/AuthForm";
 import LandingPage from "./components/LandingPage";
 import { me } from "./store";
@@ -20,6 +21,7 @@ const Routes = () => {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={LandingPage} />
+        <Route path="/products" component={AllProducts} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         {/* Displays our Login component as a fallback */}
