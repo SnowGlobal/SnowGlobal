@@ -20,8 +20,13 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
+          {/* eventually replace with an icon */}
+          <input type="button" onClick={toggleCart} value="Cart" />
         </div>
       )}
+      <div>
+
+      </div>
     </nav>
     <hr />
   </div>

@@ -19,3 +19,22 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+/* MAIN CONTAINER */
+
+#main {
+  display: flex;
+}
+
+#mainBody {
+  width: 100%;
+}
+
+.cartOpen {
+  width: 20%;
+}
+
+.cartHidden {
+  width: 0%;
+  visibility: hidden;
+}
