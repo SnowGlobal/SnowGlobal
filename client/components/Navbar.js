@@ -21,7 +21,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
           {/* eventually replace with an icon */}
-          <input type="button" onClick={toggleCart} value="Cart" />
+          <input type="button" value="Cart" />
         </div>
       )}
       <div>
