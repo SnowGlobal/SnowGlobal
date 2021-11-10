@@ -4,8 +4,8 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import AllProducts from "./components/AllProducts";
 import { Login, Signup } from "./components/AuthForm";
 import LandingPage from "./components/LandingPage";
+import Checkout from "./components/Checkout";
 import SingleProductPage from "./components/SingleProduct";
-import { me } from "./store";
 
 /**
  * COMPONENT
@@ -26,6 +26,7 @@ const Routes = () => {
         <Route path ="/products/:id" component={SingleProductPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route patch="/checkout" component={Checkout}/>
         {/* Displays our Login component as a fallback */}
         <Redirect to="/" />
       </Switch>
