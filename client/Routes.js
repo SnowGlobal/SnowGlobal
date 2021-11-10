@@ -25,7 +25,7 @@ const Routes = () => {
         <Route path="/products" component={AllProducts} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route patch="/checkout" component={Checkout}>
+        <Route patch="/checkout" component={Checkout}/>
         {/* Displays our Login component as a fallback */}
         <Redirect to="/" />
       </Switch>
