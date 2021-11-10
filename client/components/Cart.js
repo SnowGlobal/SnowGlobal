@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchCart } from "../store/Cart";
-// test
+import { Link } from "react-router-dom";
+
 const mock_shopping_cart = {
   data: [
     {
@@ -39,8 +40,6 @@ const mock_shopping_cart = {
   ],
 };
 
-//
-
 const testCart = mock_shopping_cart.data;
 
 class Cart extends React.Component {
@@ -66,7 +65,6 @@ class Cart extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     const cart = this.props.cart;
     return (
       <div>
@@ -85,6 +83,9 @@ class Cart extends React.Component {
           })}
         </ul>
         <h2>Total: {this.state.total}</h2>
+        <Link to="/checkout">
+          <button>Checkout</button>
+        </Link>
       </div>
     );
   }
