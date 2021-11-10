@@ -2,6 +2,44 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchCart } from "../store/Cart";
 
+const mock_shopping_cart = {
+  data: [
+    {
+      id: 1,
+      name: "victory snowglobe",
+      imageUrl: "abc/def",
+      quantity: 1,
+      description: "a great snowglobe a",
+      price: 14.99,
+    },
+    {
+      id: 2,
+      name: "dan snowglobe",
+      imageUrl: "abc/def",
+      quantity: 10,
+      description: "a great snowglobe b",
+      price: 12.99,
+    },
+    {
+      id: 3,
+      name: "brian snowglobe",
+      imageUrl: "abc/def",
+      quantity: 12,
+      description: "a great snowglobe c",
+      price: 20.99,
+    },
+    {
+      id: 4,
+      name: "tai snowglobe",
+      imageUrl: "abc/def",
+      quantity: 9,
+      description: "a great snowglobe c",
+      price: 40.99,
+    },
+  ],
+};
+
+const testCart = mock_shopping_cart.data;
 
 class Cart extends React.Component {
   constructor(props) {
