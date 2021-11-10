@@ -1,33 +1,28 @@
 import axios from 'axios'
 import history from '../history'
 
-
-/**
- * ACTION TYPES
- */
+//action types
 const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'
 
-/**
- * ACTION CREATORS
- */
+//action creators
 const setSingleProduct = product => ({ type: SET_SINGLE_PRODUCT, product })
 
-/**
- * THUNK CREATORS
- */
-export const fetchSingleProduct = (id) => async dispatch => {
-  try {
-    const { data } = await axios.get(`/api/products/${id}`)
-    dispatch(setSingleProduct(data))
-  } catch (error) {
-    console.log('There was an error fetching a single product: ', error)
+//thunk creators
+export const fetchSingleProduct = (id) => {
+  return async dispatch => {
+    try {
+      const { data } = await axios.get(`/api/products/${id}`)
+      dispatch(setSingleProduct(data))
+    } catch (error) {
+      console.log('There was an error fetching a single product: ', error)
+    }
   }
 }
 
-/**
- * REDUCER
- */
-export default function(state = {}, action) {
+//reducer
+const initialState = {}
+
+export default function singleProductReducer (state = initialState, action) {
   switch (action.type) {
     case SET_SINGLE_PRODUCT:
       return action.product
