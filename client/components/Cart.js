@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchCart } from "../store/Cart";
+import { Link } from "react-router-dom";
 
 const mock_shopping_cart = {
   data: [
@@ -39,8 +40,6 @@ const mock_shopping_cart = {
   ],
 };
 
-//
-
 const testCart = mock_shopping_cart.data;
 
 class Cart extends React.Component {
@@ -66,13 +65,12 @@ class Cart extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     const cart = this.props.cart;
     return (
       <div>
         <h1>Cart</h1>
         <ul>
-          {testCart.map((item) => {
+          {testCart.map(item => {
             return (
               <li key={item.id}>
                 <h2>{item.name}</h2>
@@ -85,18 +83,21 @@ class Cart extends React.Component {
           })}
         </ul>
         <h2>Total: {this.state.total}</h2>
+        <Link to="/checkout">
+          <button>Checkout</button>
+        </Link>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     cart: state.cart,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     fetchCart: () => dispatch(fetchCart()),
   };
