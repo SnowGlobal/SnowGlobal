@@ -20,6 +20,7 @@ export class Checkout extends React.Component {
       <form id ="shipping-form" onSubmit={this.handleSubmit}>
         <label>Shipping Address</label>
         <input name="address"/>
+        <input name="name"/>
         <button type="submit">Confirm Checkout</button>
         </form>
       </div>
