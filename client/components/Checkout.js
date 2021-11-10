@@ -25,7 +25,7 @@ export class Checkout extends React.Component {
 }
 
 const mapDispatch = (dispatch, { history }) => ({
-  //needs redux/ api routes
+  //needs redux
   //deleteProduct : (id) => dispatch(deleteProduct(id))
 })
 
