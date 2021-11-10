@@ -39,6 +39,8 @@ const mock_shopping_cart = {
   ],
 };
 
+//
+
 const testCart = mock_shopping_cart.data;
 
 class Cart extends React.Component {
