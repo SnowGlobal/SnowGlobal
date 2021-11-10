@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import AllProducts from "./components/AllProducts";
 import { Login, Signup } from "./components/AuthForm";
 import LandingPage from "./components/LandingPage";
 import Checkout from "./components/Checkout";
-import { me } from "./store";
+import SingleProductPage from "./components/SingleProduct";
 
 /**
  * COMPONENT
@@ -22,7 +22,8 @@ const Routes = () => {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={LandingPage} />
-        <Route path="/products" component={AllProducts} />
+        <Route exact path="/products" component={AllProducts} />
+        <Route path ="/products/:id" component={SingleProductPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route patch="/checkout" component={Checkout}/>

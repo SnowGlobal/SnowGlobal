@@ -10,6 +10,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+
 router.delete(":/id", async (req, res, next) => {
   try {
     const removeProduct = await Products.findOne({
@@ -23,6 +24,15 @@ router.delete(":/id", async (req, res, next) => {
     }
   } catch (e) {
     next(e);
+  }
+});
+
+router.get('/:productId', async (req, res, next) => {
+  try {
+    const product = await Products.findByPk(req.params.productId);
+    res.send(product);
+  } catch (error) {
+    next(error);
   }
 });
 
