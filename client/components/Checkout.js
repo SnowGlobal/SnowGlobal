@@ -8,32 +8,31 @@ import { deleteProduct } from "../store/Products";
 //on submit remove items from db
 
 export class Checkout extends React.Component {
-
-  handleSubmit(evt){
+  handleSubmit(evt) {
     evt.preventDefault();
   }
 
-  render(){
+  render() {
     return (
       <div>
-      <h1>Checkout</h1>
-      <form id ="shipping-form" onSubmit={this.handleSubmit}>
-        <label>Shipping Address</label>
-        <input name="address"/>
-        <button type="submit">Confirm Checkout</button>
+        <h1>Checkout</h1>
+        <form id="shipping-form" onSubmit={this.handleSubmit}>
+          <label>Shipping Address</label>
+          <input name="address" />
+          <button type="submit">Confirm Checkout</button>
         </form>
       </div>
-    )
+    );
   }
 }
 
-const mapState = (state) => {
+const mapState = state => {
   return {
-    products : state.products,
-  }
-}
-const mapDispatch = (dispatch) => ({
-  deleteProduct : (id) => dispatch(deleteProduct(id))
-})
+    products: state.products,
+  };
+};
+const mapDispatch = dispatch => ({
+  deleteProduct: id => dispatch(deleteProduct(id)),
+});
 
-export default connect(mapState,mapDispatch)(Checkout)
+export default connect(mapState, mapDispatch)(Checkout);

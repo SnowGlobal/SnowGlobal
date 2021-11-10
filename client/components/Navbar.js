@@ -24,9 +24,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <input type="button" value="Cart" />
         </div>
       )}
-      <div>
-
-      </div>
+      <div></div>
     </nav>
     <hr />
   </div>
