@@ -17,7 +17,9 @@ export class Checkout extends React.Component {
     return (
       <div>
       <h1>Checkout</h1>
-      <form id ="payment-form" onSubmit={this.handleSubmit}>
+      <form id ="shipping-form" onSubmit={this.handleSubmit}>
+        <label>Shipping Address</label>
+        <input name="address"/>
         <button type="submit">Confirm Checkout</button>
         </form>
       </div>
@@ -30,7 +32,7 @@ const mapState = (state) => {
     products : state.products,
   }
 }
-const mapDispatch = (dispatch, { history }) => ({
+const mapDispatch = (dispatch) => ({
   deleteProduct : (id) => dispatch(deleteProduct(id))
 })
 
