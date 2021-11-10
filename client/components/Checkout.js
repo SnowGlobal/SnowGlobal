@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { deleteProduct } from "../store/Products";
 
 ///this is not explicitly laid out yet, but presuming
 ///the checkout component is being passed several product objects
@@ -24,9 +25,13 @@ export class Checkout extends React.Component {
   }
 }
 
+const mapState = (state) => {
+  return {
+    products : state.products,
+  }
+}
 const mapDispatch = (dispatch, { history }) => ({
-  //needs redux
-  //deleteProduct : (id) => dispatch(deleteProduct(id))
+  deleteProduct : (id) => dispatch(deleteProduct(id))
 })
 
-export default connect(null,mapDispatch)(Checkout)
+export default connect(mapState,mapDispatch)(Checkout)
