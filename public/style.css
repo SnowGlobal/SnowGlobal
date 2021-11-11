@@ -2,8 +2,10 @@ body {
   font-family: sans-serif;
 }
 
-a {
+a, a:visited {
+  color: rgb(89, 153, 122);
   text-decoration: none;
+  outline: 0;
 }
 
 label {
@@ -43,6 +45,7 @@ h1 {
   font-size: 2em;
   text-align: center;
 }
+
 /* Products */
 .all-products-name {
   text-align: center;
@@ -99,12 +102,6 @@ h1 {
   padding: 0 8px;
 }
 
-.fa{
-  color: #ff9f43;
-  font-size: 26px;
-  transition: .4s;
-}
-
 .all-products-price {
   font-size: 26px;
   text-align: center;
@@ -126,4 +123,67 @@ h1 {
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   background-color: #2183a2;
+}
+
+/* single product */
+
+.single-product-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  /* margin: 50px 0; */
+}
+
+.single-product-image h1 {
+  font-size: 30px;
+  font-family: myriad-pro,"Myriad Pro",Myriad,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-align:left;
+  color:#525252;
+}
+
+.single-product-image-container img{
+  width:600px;
+  height: auto;
+}
+
+.single-product-description {
+  flex-basis: 50%;
+}
+
+.single-product-description h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 2px;
+}
+
+.single-product-description h3 p {
+  color: #444;
+}
+
+.single-product-description button {
+  background: #888;
+  border: 0 solid #555;
+  color: #fff;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+  line-height: normal;
+  padding: 12px 25px;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'PT Sans',sans-serif;
+}
+
+.quantity {
+  padding: 5px;
+  width: 65px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
