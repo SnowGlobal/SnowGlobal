@@ -9,11 +9,10 @@ export class AllProducts extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     const products = this.props.products;
     return (
-      <div>
-        <h1>All Products</h1>
+      <div className={'all-products-container'}>
+        <h1>Shop All Snowglobes</h1>
         <div className={'gallery'}>
           {products.map(product => {
             return (
@@ -22,7 +21,9 @@ export class AllProducts extends React.Component {
                   <img className={'all-products-image'} src={product.imageUrl} />
                 </Link>
                 <h2 className={'all-products-name'}>{product.name}</h2>
-                <p className={'all-product-description'}>{product.description}</p>
+                <div className={'all-product-description-container'}>
+                  <p className={'all-product-description'}>{product.description}</p>
+                </div>
                 <p className={'all-products-price'}>{`$${product.price}.00`}</p>
                 <button className={'all-products-button'}>Add to Cart</button>
               </div>
