@@ -21,52 +21,41 @@ class AdminHomePage extends Component {
   }
 
   render() {
+    // should be a table with all the products and a delete button for each product in the table and an edit button for each product in the table and a link to the product page for each product in the table
     return (
       <div>
         <h1>Admin Home Page</h1>
-        {/* <Link to="/admin/add-product">Add Product</Link>
-        <Link to="/admin/edit-product">Edit Product</Link> */}
-        {/* <Link to="/admin/delete-product">Delete Product</Link> */}
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            this.props.deleteProduct(this.state.productId);
-          }}
-        >
-          <label>
-            Product Id:
-            <input
-              type="text"
-              name="productId"
-              onChange={e => {
-                this.setState({ productId: e.target.value });
-              }}
-            />
-          </label>
-          <button type="submit">Delete Product</button>
-        </form>
+        <h2>Products</h2>
         <table>
           <thead>
             <tr>
-              <th>Id</th>
               <th>Name</th>
+              <th>Description</th>
               <th>Price</th>
-              <th>Category</th>
               <th>Image</th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
-            {this.state.products.map(product => {
-              return (
-                <tr key={product.id}>
-                  <td>{product.id}</td>
-                  <td>{product.name}</td>
-                  <td>{product.price}</td>
-                  <td>{product.category}</td>
-                  <td>{product.image}</td>
-                </tr>
-              );
-            })}
+            {this.state.products.map(product => (
+              <tr key={product.id}>
+                <td>{product.name}</td>
+                <td>{product.description}</td>
+                <td>{product.price}</td>
+                <td>
+                  <img src={product.image} alt={product.name} />
+                </td>
+                <td>
+                  <Link to={`/products/edit/${product.id}`}>Edit</Link>
+                </td>
+                <td>
+                  <button onClick={() => this.props.deleteProduct(product.id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
