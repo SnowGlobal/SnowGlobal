@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleProduct } from '../store/singleProduct';
+import { Link } from "react-router-dom";
 
 export class SingleProductPage extends React.Component {
   componentDidMount() {
@@ -9,15 +10,34 @@ export class SingleProductPage extends React.Component {
 
   render() {
     const { product } = this.props;
-
     return (
       <div>
-        <h1>{product.name}</h1>
-        <img src ={product.imageUrl}/>
-        <p>{`rating: ${product.rating}`}</p>
-        <p>{product.description}</p>
-        <p>{`$${product.price}`}</p>
-        <button>Add to Cart</button>
+        <div className="single-product-container">
+          <div className="single-product-image">
+            <h1>{product.name}</h1>
+            <div className='single-product-image-container'>
+              <img src ={product.imageUrl}/>
+            </div>
+          </div>
+          <div className='single-product-description'>
+            <h3>
+              {product.name}
+              <div>{'⭐'.repeat(product.rating)}</div>
+              <p>{`$${product.price}`}</p>
+            </h3>
+            <form>
+            <p className='quantity-box'>
+              <label htmlFor='quantity'>Quantity: </label>
+              <input className='quantity' type="number" name="quantity" min="1" max="10" defaultValue="1"/>
+            </p>
+              <button type="submit">Add to Cart</button>
+            </form>
+            <p>{product.description}</p>
+            <Link to={'/products'}>
+              <p>◄ Continue Shopping</p>
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }

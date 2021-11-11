@@ -34,13 +34,6 @@ const dummyCart = [
 ];
 
 export class Checkout extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  componentDidMount() {
-    this.props;
-  }
-
   handleSubmit(evt) {
     evt.preventDefault();
   }
@@ -82,7 +75,7 @@ export class Checkout extends React.Component {
   }
 }
 
-const mapState = (state) => {
+const mapState = state => {
   return {
     products: state.products,
   };
