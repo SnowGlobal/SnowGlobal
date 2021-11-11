@@ -5,7 +5,9 @@ import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn, toggleCart }) => (
   <div>
-    <h1>SnowGlobal</h1>
+    <Link to="/">
+      <h1>SnowGlobal</h1>
+    </Link>
     <nav>
       {isLoggedIn ? (
         <div>
@@ -24,7 +26,6 @@ const Navbar = ({ handleClick, isLoggedIn, toggleCart }) => (
           <input type="button" onClick={toggleCart} value="Cart" />
         </div>
       )}
-      <div></div>
     </nav>
     <hr />
   </div>
