@@ -7,6 +7,7 @@ import LandingPage from "./components/LandingPage";
 import Checkout from "./components/Checkout";
 import SingleProductPage from "./components/SingleProduct";
 import Cart from "./components/Cart";
+import AdminHomePage from "./components/AdminHomePage";
 
 /**
  * COMPONENT
@@ -28,7 +29,8 @@ const Routes = () => {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
-        <Route patch="/checkout" component={Checkout} />
+        <Route path="/checkout" component={Checkout} />
+        <Route path="/admin" component={AdminHomePage} />
         {/* Displays our Login component as a fallback */}
         <Redirect to="/" />
       </Switch>
