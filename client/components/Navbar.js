@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, toggleCart }) => (
   <div>
-    <h1>SnowGlobal</h1>
+    <Link to="/">
+      <h1>SnowGlobal</h1>
+    </Link>
     <nav>
       {isLoggedIn ? (
         <div>
@@ -21,12 +23,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
           {/* eventually replace with an icon */}
-          <input type="button" value="Cart" />
+          <input type="button" onClick={toggleCart} value="Cart" />
         </div>
       )}
-      <div>
-
-      </div>
     </nav>
     <hr />
   </div>

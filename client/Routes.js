@@ -6,6 +6,7 @@ import { Login, Signup } from "./components/AuthForm";
 import LandingPage from "./components/LandingPage";
 import Checkout from "./components/Checkout";
 import SingleProductPage from "./components/SingleProduct";
+import Cart from "./components/Cart";
 
 /**
  * COMPONENT
@@ -23,10 +24,11 @@ const Routes = () => {
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/products" component={AllProducts} />
-        <Route path ="/products/:id" component={SingleProductPage} />
+        <Route path="/products/:id" component={SingleProductPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route patch="/checkout" component={Checkout}/>
+        <Route path="/cart" component={Cart} />
+        <Route patch="/checkout" component={Checkout} />
         {/* Displays our Login component as a fallback */}
         <Redirect to="/" />
       </Switch>
