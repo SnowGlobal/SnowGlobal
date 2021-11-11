@@ -10,13 +10,12 @@ const Cart = require('./models/Cart')
 User.belongsToMany(Products, { through: Cart })
 Products.belongsToMany(User, { through: Cart })
 
-Cart.belongsTo(User)
-
 
 module.exports = {
   db,
   models: {
     User,
-    Products
+    Products,
+    Cart
   },
 }

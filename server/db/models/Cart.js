@@ -7,7 +7,7 @@ module.exports = db.define('Cart', {
     primaryKey: true,
     autoIncrement: true,
   },
-  Quantity: {
+  quantity: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },

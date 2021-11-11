@@ -10,10 +10,10 @@ const getCart = (cart) => ({
 });
 
 //thunk creators
-export const fetchCart = () => {
+export const fetchCart = (userId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get("/api/cart");
+      const { data } = await axios.get(`/api/cart/${userId}`);
       dispatch(getCart(data));
     } catch (error) {
       console.error(error);
@@ -27,7 +27,7 @@ const initialState = [];
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
-      console.log("geting cart");
+      console.log("getting cart");
       return action.cart;
     default:
       return state;

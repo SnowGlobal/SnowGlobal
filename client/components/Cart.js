@@ -58,7 +58,10 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchCart();
+    //if there is a user logged in, they'll want their cart, right?
+    if(this.props.auth.id){
+      this.props.fetchCart(this.props.auth.id);
+    }
     this.calculateTotal(this.props.cart);
     // for testing:
     this.calculateTotal(testCart);
@@ -66,10 +69,12 @@ class Cart extends React.Component {
 
   render() {
     const cart = this.props.cart;
+    const auth = this.props.auth;
+    console.log({cart})
     return (
       <div>
         <h1>Cart</h1>
-        <ul>
+        {/* <ul>
           {testCart.map(item => {
             return (
               <li key={item.id}>
@@ -81,7 +86,8 @@ class Cart extends React.Component {
               </li>
             );
           })}
-        </ul>
+        </ul> */}
+        <h1>This is the User ID: {auth.id}</h1>
         <h2>Total: {this.state.total}</h2>
         <Link to="/checkout">
           <button>Checkout</button>
@@ -94,12 +100,13 @@ class Cart extends React.Component {
 const mapStateToProps = state => {
   return {
     cart: state.cart,
+    auth: state.auth,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCart: () => dispatch(fetchCart()),
+    fetchCart: (userId) => dispatch(fetchCart(userId)),
   };
 };
 

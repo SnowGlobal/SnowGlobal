@@ -9,17 +9,19 @@ export class SingleProductPage extends React.Component {
   }
 
   addToCart = (id) => {
+    event.preventDefault();
     //in this if statement check if the user id exists
-    if(this.props.user.id){
+    if(this.props.auth.id){
+      console.log('hello world i can see you are logged in as ', this.props.auth)
       //if the user exists, get an array of the user's cart items by id
-      let idArray = this.props.cart.map(product => product.productId) //pseudocode
-      if(idArray.includes(id)){
-        //if the user's cart already has the item, update the quantity
-        this.props.updateQuantity(id) //pseudocode
-      } else {
-        //if the user's cart does not have the item, add the item to the cart
-        this.props.addToCart(id) //pseudocode
-      }
+      // let idArray = this.props.cart.map(product => product.productId) //pseudocode
+      // if(idArray.includes(id)){
+      //   //if the user's cart already has the item, update the quantity
+      //   this.props.updateQuantity(id) //pseudocode
+      // } else {
+      //   //if the user's cart does not have the item, add the item to the cart
+      //   this.props.addToCart(id) //pseudocode
+      // }
     } else {
       //if there is no user, check if there is a localstorage cart
       if(!window.localStorage.cart){
@@ -31,6 +33,8 @@ export class SingleProductPage extends React.Component {
   }
 
   render() {
+    const { id } = this.props.auth;
+    console.log('this is the auth in the single product', id)
     const { product } = this.props;
     return (
       <div>
@@ -71,6 +75,7 @@ export class SingleProductPage extends React.Component {
 const mapState = state => {
   return {
     product: state.singleProduct,
+    auth: state.auth
   };
 };
 
