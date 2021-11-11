@@ -26,34 +26,47 @@ class AdminHomePage extends Component {
         <h1>Admin Home Page</h1>
         {/* <Link to="/admin/add-product">Add Product</Link>
         <Link to="/admin/edit-product">Edit Product</Link> */}
-        <Link to="/admin/delete-product">Delete Product</Link>
+        {/* <Link to="/admin/delete-product">Delete Product</Link> */}
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            this.props.deleteProduct(this.state.productId);
+          }}
+        >
+          <label>
+            Product Id:
+            <input
+              type="text"
+              name="productId"
+              onChange={e => {
+                this.setState({ productId: e.target.value });
+              }}
+            />
+          </label>
+          <button type="submit">Delete Product</button>
+        </form>
         <table>
           <thead>
             <tr>
-              <th>Product ID</th>
-              <th>Product Name</th>
-              <th>Product Price</th>
-              <th>Product Quantity</th>
-              <th>Product Category</th>
-              <th>Product Image</th>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Category</th>
+              <th>Image</th>
             </tr>
           </thead>
           <tbody>
-            {this.state.products.map(product => (
-              <tr key={product.id}>
-                <td>{product.id}</td>
-                <td>{product.name}</td>
-                <td>{product.price}</td>
-                <td>{product.quantity}</td>
-                <td>{product.category}</td>
-                <button onClick={() => this.props.deleteProduct(product.id)}>
-                  Delete
-                </button>
-                <td>
-                  <img src={product.image} />
-                </td>
-              </tr>
-            ))}
+            {this.state.products.map(product => {
+              return (
+                <tr key={product.id}>
+                  <td>{product.id}</td>
+                  <td>{product.name}</td>
+                  <td>{product.price}</td>
+                  <td>{product.category}</td>
+                  <td>{product.image}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -68,7 +81,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchProducts: bindActionCreators(fetchProducts, dispatch),
-    deleteProduct: bindActionCreators(deleteProduct, dispatch),
+    deleteProduct: productId => dispatch(deleteProduct(productId)),
     // editProduct: bindActionCreators(editProduct, dispatch),
   };
 }

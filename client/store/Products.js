@@ -12,8 +12,8 @@ const getProducts = products => ({
 
 const _deleteProduct = product => ({
   type: DELETE_PRODUCT,
-  product
-})
+  product,
+});
 
 //thunk creators
 export const fetchProducts = () => {
@@ -27,17 +27,16 @@ export const fetchProducts = () => {
   };
 };
 
-export const deleteProduct = (id) => {
+export const deleteProduct = id => {
   return async dispatch => {
     try {
-      const { data } = await axios.delete(`/api/products/${id}`)
-      dispatch(_deleteProduct(data))
+      const { data } = await axios.delete(`/api/products/${id}`);
+      dispatch(_deleteProduct(data));
+    } catch (error) {
+      console.error(error);
     }
-    catch(error){
-      console.error(error)
-    }
-  }
-}
+  };
+};
 
 //reducer
 const initialState = [];
@@ -46,8 +45,8 @@ export default function productsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products;
-      case DELETE_PRODUCT:
-        return [...state]
+    case DELETE_PRODUCT:
+      return state.filter(product => product.id !== action.product.id);
     default:
       return state;
   }
