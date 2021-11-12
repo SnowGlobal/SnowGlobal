@@ -10,14 +10,21 @@ const getCart = (cart) => ({
 });
 
 //thunk creators
-export const fetchCart = (userId) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get(`/api/cart/${userId}`);
-      dispatch(getCart(data));
+export const fetchCart = () => {
+  const token = window.localStorage.getItem('token');
+  if(token){
+    return async (dispatch) => {
+      try {
+        const { data } = await axios.get(`/api/cart/`, {
+          headers: {
+            authorization: token,
+          },
+        });
+        return dispatch(getCart(data));
     } catch (error) {
       console.error(error);
     }
+  }
   };
 };
 
