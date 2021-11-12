@@ -23,6 +23,19 @@ export class AdminEditProductPage extends React.Component {
     this.props.fetchSingleProduct(this.props.match.params.id);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.product.id !== this.props.product.id) {
+      this.setState({
+        name: this.props.product.name,
+        price: this.props.product.price,
+        description: this.props.product.description,
+        imageUrl: this.props.product.imageUrl,
+        category: this.props.product.category,
+        inventory: this.props.product.inventory,
+      });
+    }
+  }
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
