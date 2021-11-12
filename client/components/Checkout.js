@@ -10,6 +10,7 @@ import { fetchCart } from "../store/Cart";
 
 const dummyCart = [
   {
+    id: 1,
     productId: "73-0144764",
     name: "Oriental short-clawed otter Snowglobe",
     price: 12,
@@ -21,6 +22,7 @@ const dummyCart = [
     rating: 0,
   },
   {
+    id: 2,
     productId: "60-5809053",
     name: "Lizard (unidentified) Snowglobe",
     price: 54,
@@ -34,6 +36,9 @@ const dummyCart = [
 ];
 
 export class Checkout extends React.Component {
+  constructor(props){
+  super(props)
+  }
   handleSubmit(evt) {
     evt.preventDefault();
   }
@@ -44,7 +49,7 @@ export class Checkout extends React.Component {
         <h1>Checkout</h1>
         <table>
           <tbody>
-            <tr>
+            <tr key="head">
               <th>Item</th>
               <th>Quantity</th>
               <th>Price</th>
