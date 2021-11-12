@@ -67,7 +67,7 @@ export class Checkout extends React.Component {
             })}
           </tbody>
         </table>
-        <h3>Customer Information</h3>
+        <h3>Order Information</h3>
         <form className="checkout-form" onSubmit={this.handleSubmit}>
           <label>Shipping Information</label>
           <input name="address" placeholder="Address"/>
@@ -85,11 +85,11 @@ export class Checkout extends React.Component {
 
 const mapState = state => {
   return {
-    products: state.products,
+    cart: state.cart,
   };
 };
 const mapDispatch = (dispatch) => ({
-  getCart: () => dispatch(fetchCart()),
+  fetchCart: () => dispatch(fetchCart()),
   deleteProduct: (id) => dispatch(deleteProduct(id)),
 });
 
