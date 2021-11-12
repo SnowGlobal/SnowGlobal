@@ -8,6 +8,7 @@ import Checkout from "./components/Checkout";
 import SingleProductPage from "./components/SingleProduct";
 import Cart from "./components/Cart";
 import AdminHomePage from "./components/AdminHomePage";
+import AdminEditProductPage from "./components/AdminEditProductPage";
 
 /**
  * COMPONENT
@@ -25,12 +26,13 @@ const Routes = () => {
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/products" component={AllProducts} />
-        <Route path="/products/:id" component={SingleProductPage} />
+        <Route exact path="/products/:id" component={SingleProductPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />
-        <Route path="/admin" component={AdminHomePage} />
+        <Route exact path="/admin" component={AdminHomePage} />
+        <Route path="/admin/edit/:id" component={AdminEditProductPage} />
         {/* Displays our Login component as a fallback */}
         <Redirect to="/" />
       </Switch>

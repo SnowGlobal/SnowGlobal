@@ -11,13 +11,20 @@ const getCart = (cart) => ({
 
 //thunk creators
 export const fetchCart = () => {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get("/api/cart");
-      dispatch(getCart(data));
+  const token = window.localStorage.getItem('token');
+  if(token){
+    return async (dispatch) => {
+      try {
+        const { data } = await axios.get(`/api/cart/`, {
+          headers: {
+            authorization: token,
+          },
+        });
+        return dispatch(getCart(data));
     } catch (error) {
       console.error(error);
     }
+  }
   };
 };
 
@@ -27,7 +34,7 @@ const initialState = [];
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
-      console.log("geting cart");
+      console.log("getting cart");
       return action.cart;
     default:
       return state;

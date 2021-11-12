@@ -1,12 +1,20 @@
 const router = require("express").Router();
-const Cart = require("../db/models/Products"); // change to Cart once db is created
+const {
+  models: { User, Products, Cart, CartProducts },
+} = require("../db");
 
-router.get("/:userId", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
-    const cart = await Cart.findAll({
-      where: { userId: req.params.userId },
-    });
-    res.send(cart);
+    let user = await User.findByToken(req.headers.authorization)
+    if(user){
+      let cart = await Cart.findOne({
+        where: { userId: user.id },
+        include: [{ model: Products }]
+      });
+      res.send(cart);
+    } else {
+      res.sendStatus(401)
+    }
   } catch (e) {
     next(e);
   }
