@@ -58,30 +58,34 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchCart();
+    //if there is a user logged in, they'll want their cart, right?
+    if(this.props.auth.id){
+      this.props.fetchCart();
+    }
     this.calculateTotal(this.props.cart);
     // for testing:
     this.calculateTotal(testCart);
   }
 
   render() {
-    const cart = this.props.cart;
-    return (
+    const cart = this.props.cart
+    const auth = this.props.auth;
+    return cart.length === 0 ? <div>Your Cart is Empty!</div> :
+    (
       <div>
         <h1>Cart</h1>
-        <ul>
-          {testCart.map(item => {
+        <h1>Greetings {auth.firstName || 'Guest'}, here is your cart!</h1>
+        <div>
+          {/* {cart.map((cartItem, index) => {
             return (
-              <li key={item.id}>
-                <h2>{item.name}</h2>
-                <p>{item.description}</p>
-                <p>{item.price}</p>
-                <img src={item.imageUrl} />
-                <p>{item.quantity}</p>
-              </li>
-            );
-          })}
-        </ul>
+              <div key={cartItem.id}>
+                <div>Quantity: {cartItem.quantity}</div>
+              </div>
+            )
+            })
+          } */}
+          </div>
+
         <h2>Total: {this.state.total}</h2>
         <Link to="/checkout">
           <button>Checkout</button>
@@ -94,6 +98,7 @@ class Cart extends React.Component {
 const mapStateToProps = state => {
   return {
     cart: state.cart,
+    auth: state.auth,
   };
 };
 
