@@ -32,7 +32,7 @@ class AdminHomePage extends Component {
               <th>Name</th>
               <th>Description</th>
               <th>Price</th>
-              <th>Image</th>
+              {/* <th>Image</th> */}
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -43,11 +43,11 @@ class AdminHomePage extends Component {
                 <td>{product.name}</td>
                 <td>{product.description}</td>
                 <td>{product.price}</td>
+                {/* <td>
+                  <img src={product.imageUrl} alt={product.name} />
+                </td> */}
                 <td>
-                  <img src={product.image} alt={product.name} />
-                </td>
-                <td>
-                  <Link to={`/products/edit/${product.id}`}>Edit</Link>
+                  <Link to={`admin/edit/${product.id}`}>Edit</Link>
                 </td>
                 <td>
                   <button onClick={() => this.props.deleteProduct(product.id)}>

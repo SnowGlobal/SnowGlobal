@@ -29,4 +29,15 @@ router.get("/:productId", async (req, res, next) => {
   }
 });
 
+// create an edit route
+router.put("/:productId", async (req, res, next) => {
+  try {
+    const updatedProduct = await Products.findByPk(req.params.productId);
+    await updatedProduct.update(req.body);
+    res.send(updatedProduct);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
