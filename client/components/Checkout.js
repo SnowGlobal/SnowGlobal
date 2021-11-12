@@ -49,7 +49,7 @@ export class Checkout extends React.Component {
         <h1>Checkout</h1>
         <table>
           <tbody>
-            <tr key="head">
+            <tr className="table-head">
               <th>Item</th>
               <th>Quantity</th>
               <th>Price</th>
@@ -68,11 +68,14 @@ export class Checkout extends React.Component {
           </tbody>
         </table>
         <h3>Customer Information</h3>
-        <form id="shipping-form" onSubmit={this.handleSubmit}>
-          <label>Shipping Address</label>
-          <input name="address" />
-          <label>Name</label>
-          <input name="name" />
+        <form className="checkout-form" onSubmit={this.handleSubmit}>
+          <label>Shipping Information</label>
+          <input name="address" placeholder="Address"/>
+          <input name="zipcode" placeholder="Zipcode"/>
+          <input name="state" placeholder="state"/>
+          <label>Customer Information</label>
+          <input name="firstName" placeholder="First Name" />
+          <input name="lastName" placeholder="Last Name"/>
           <button type="submit">Confirm Checkout</button>
         </form>
       </div>

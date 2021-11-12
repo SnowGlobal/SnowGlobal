@@ -187,3 +187,24 @@ h1 {
   margin-top: 10px;
   margin-bottom: 15px;
 }
+
+table , td{
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+.table-head{
+  background-color:#2183a2;
+}
+
+.checkout-form {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 300px
+
+}
