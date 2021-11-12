@@ -19,7 +19,7 @@ const dummyCart = [
     imageUrl: "http://dummyimage.com/x.png/5fa2dd/ffffff",
     inventory: 51,
     category: "small",
-    rating: 0,
+    quantity: 2,
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ const dummyCart = [
     imageUrl: "http://dummyimage.com/x.png/5fa2dd/ffffff",
     inventory: 3,
     category: "small",
-    rating: 2,
+    quantity: 1,
   },
 ];
 
@@ -51,17 +51,17 @@ export class Checkout extends React.Component {
           <tbody>
             <tr className="table-head">
               <th>Item</th>
-              <th>Quantity</th>
               <th>Price</th>
+              <th>Quantity</th>
               <th>Total</th>
             </tr>
             {dummyCart.map((product) => {
               return (
                 <tr key={product.id}>
                   <td>{product.name}</td>
-                  <td>1</td>
                   <td>{product.price}</td>
-                  <td>{product.price}</td>
+                  <td>{product.quantity}</td>
+                  <td>{product.price * product.quantity}</td>
                 </tr>
               );
             })}
@@ -71,8 +71,8 @@ export class Checkout extends React.Component {
         <form className="checkout-form" onSubmit={this.handleSubmit}>
           <label>Shipping Information</label>
           <input name="address" placeholder="Address"/>
+          <input name="state" placeholder="State"/>
           <input name="zipcode" placeholder="Zipcode"/>
-          <input name="state" placeholder="state"/>
           <label>Customer Information</label>
           <input name="firstName" placeholder="First Name" />
           <input name="lastName" placeholder="Last Name"/>
