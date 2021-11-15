@@ -3,13 +3,8 @@ import axios from "axios";
 //action types
 const GET_CART = "GET_CART";
 const REMOVE_FROM_CART = "REMOVE_FROM_CART";
-const UPDATE_CART = "UPDATE_CART";
-//action creators
-const _updateCart = cart => ({
-  type: UPDATE_CART,
-  cart,
-});
 
+//action creators
 const _getCart = cart => ({
   type: GET_CART,
   cart,
@@ -21,7 +16,7 @@ const _removeFromCart = product => ({
 });
 
 //thunk creators
-export const removeFromCart = (id, history) => {
+export const removeFromCart = id => {
   const token = localStorage.getItem("token");
   if (token) {
     return async dispatch => {
@@ -32,29 +27,6 @@ export const removeFromCart = (id, history) => {
           },
         });
         dispatch(_removeFromCart(data));
-        history.push("/cart");
-      } catch (err) {
-        console.error(err);
-      }
-    };
-  }
-};
-
-export const updateCart = (id, quantity) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    return async dispatch => {
-      try {
-        const { data } = await axios.put(
-          `/api/cart/${id}`,
-          { quantity },
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-        dispatch(_updateCart(data));
       } catch (err) {
         console.error(err);
       }
@@ -80,23 +52,6 @@ export const fetchCart = () => {
   }
 };
 
-export const addToCart = (productId, quantity) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    return async dispatch => {
-      try {
-        const { data } = await axios.post(`/api/cart/`, {
-          productId,
-          quantity,
-        });
-        dispatch(_updateCart(data));
-      } catch (err) {
-        console.error(err);
-      }
-    };
-  }
-};
-
 export const clearCart = () => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -115,13 +70,12 @@ export const clearCart = () => {
   }
 };
 
-// products is a key value on the cart object
 const initialState = {
   products: [],
   total: 0,
 };
 
-export default function cartReducer(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case GET_CART:
       return {
@@ -135,12 +89,6 @@ export default function cartReducer(state = initialState, action) {
         products: state.products.filter(
           product => product.id !== action.productId
         ),
-      };
-    case UPDATE_CART:
-      return {
-        ...state,
-        products: action.cart.products,
-        total: action.cart.total,
       };
     default:
       return state;
