@@ -5,15 +5,30 @@ const {
 
 router.get("/", async (req, res, next) => {
   try {
-    let user = await User.findByToken(req.headers.authorization)
-    if(user){
+    let user = await User.findByToken(req.headers.authorization);
+    if (user) {
       let cart = await Cart.findOne({
         where: { userId: user.id },
-        include: [{ model: Products }]
+        include: [{ model: Products }],
       });
       res.send(cart);
     } else {
-      res.sendStatus(401)
+      res.sendStatus(401);
+    }
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    let user = await User.findByToken(req.headers.authorization);
+    if (user) {
+      let cart = await CartProducts.findByPk(req.params.id);
+      await cart.destroy();
+      res.sendStatus(204);
+    } else {
+      res.sendStatus(401);
     }
   } catch (e) {
     next(e);
