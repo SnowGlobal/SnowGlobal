@@ -1,19 +1,41 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchCart } from "../store/Cart";
+import { Link } from "react-router-dom";
 
 export class CheckoutSubmit extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
   }
-  render(){
+
+  componentDidMount() {
+    if(this.props.auth.id){
+      this.props.fetchCart();
+    }
+  }
+
+  render() {
+    const cart = this.props.cart
+    const auth = this.props.auth;
+    console.log(auth);
     return (
-      <h1>Thank you for your order!</h1>
-    )
+      <div>
+        <h1>Thank you for your order!</h1>
+        <Link to="/products">
+          <button>Keep Shopping</button>
+        </Link>
+      </div>
+    );
   }
 }
+const mapState = state => {
+  return {
+    cart: state.cart,
+    auth: state.auth,
+  };
+};
 const mapDispatch = (dispatch) => ({
-  fetchCart: () => dispatch(fetchCart())
-})
+  fetchCart: () => dispatch(fetchCart()),
+});
 
-export default connect (null,mapDispatch)(CheckoutSubmit)
+export default connect(mapState, mapDispatch)(CheckoutSubmit);

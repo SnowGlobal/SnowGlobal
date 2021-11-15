@@ -70,7 +70,8 @@ class Cart extends React.Component {
   render() {
     const cart = this.props.cart
     const auth = this.props.auth;
-    return cart.length === 0 ? <div>Your Cart is Empty!</div> :
+    return cart.length === 0 ?
+      <div>Your Cart is Empty!</div>:
     (
       <div>
         <h1>Cart</h1>
