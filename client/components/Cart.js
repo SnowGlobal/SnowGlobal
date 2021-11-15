@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { removeFromCart, fetchCart } from "../store/Cart";
+import { Link } from "react-router-dom";
 
 class Cart extends React.Component {
   constructor(props) {
@@ -34,10 +35,23 @@ class Cart extends React.Component {
         );
       });
     }
+    if (this.props.cart.products.length === 0) {
+      CartProducts = <h3>Your cart is empty</h3>;
+    }
+    // dont show the checkout button if cart is empty
+    let CheckoutButton;
+    if (this.props.cart.products.length > 0) {
+      CheckoutButton = (
+        <Link to="/checkout">
+          <button>Checkout</button>
+        </Link>
+      );
+    }
     return (
       <div>
-        <h2>Cart</h2>
+        <h1>Cart</h1>
         {CartProducts}
+        {CheckoutButton}
       </div>
     );
   }

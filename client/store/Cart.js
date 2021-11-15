@@ -52,23 +52,28 @@ export const fetchCart = () => {
   }
 };
 
-export const clearCart = () => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    return async dispatch => {
-      try {
-        const { data } = await axios.delete(`/api/cart/`, {
-          headers: {
-            Authorization: token,
-          },
-        });
-        dispatch(_updateCart(data));
-      } catch (err) {
-        console.error(err);
-      }
-    };
-  }
+export const localCartProducts = () => {
+  const cart = JSON.parse(localStorage.getItem("cart"));
+  return _getCart(cart);
 };
+
+// export const clearCart = () => {
+//   const token = localStorage.getItem("token");
+//   if (token) {
+//     return async dispatch => {
+//       try {
+//         const { data } = await axios.delete(`/api/cart/`, {
+//           headers: {
+//             Authorization: token,
+//           },
+//         });
+//         dispatch(_updateCart(data));
+//       } catch (err) {
+//         console.error(err);
+//       }
+//     };
+//   }
+// };
 
 const initialState = {
   products: [],
@@ -94,21 +99,3 @@ export default function (state = initialState, action) {
       return state;
   }
 }
-// export default function cartReducer(state = initialState, action) {
-//   switch (action.type) {
-//     case GET_CART:
-//       return action.cart;
-//     case REMOVE_FROM_CART:
-//       return state.products.filter(product => product.id !== action.productId);
-//     case UPDATE_CART:
-//       return action.cart;
-//     default:
-//       return state;
-//   }
-// }
-// {
-//   ...state,
-//   products: state.products.filter(
-//     product => product.id !== action.productId
-//   ),
-// };
