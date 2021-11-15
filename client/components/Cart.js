@@ -14,10 +14,10 @@ class Cart extends React.Component {
     }
   }
 
-  handleRemove(e) {
+  async handleRemove(e) {
     e.preventDefault();
-    this.props.removeFromCart(e.target.id);
-    this.props.fetchCart();
+    await this.props.removeFromCart(e.target.id);
+    await this.props.fetchCart();
   }
 
   render() {
