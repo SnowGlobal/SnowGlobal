@@ -12,7 +12,7 @@ class AdminHomePage extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchProducts();
   }
 
@@ -21,7 +21,6 @@ class AdminHomePage extends Component {
   }
 
   render() {
-    // should be a table with all the products and a delete button for each product in the table and an edit button for each product in the table and a link to the product page for each product in the table
     return (
       <div>
         <h1>Admin Home Page</h1>

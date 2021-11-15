@@ -1,95 +1,57 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchCart } from "../store/Cart";
+import { removeFromCart, fetchCart } from "../store/Cart";
 import { Link } from "react-router-dom";
-
-const mock_shopping_cart = {
-  data: [
-    {
-      id: 1,
-      name: "victory snowglobe",
-      imageUrl: "abc/def",
-      quantity: 1,
-      description: "a great snowglobe a",
-      price: 14.99,
-    },
-    {
-      id: 2,
-      name: "dan snowglobe",
-      imageUrl: "abc/def",
-      quantity: 10,
-      description: "a great snowglobe b",
-      price: 12.99,
-    },
-    {
-      id: 3,
-      name: "brian snowglobe",
-      imageUrl: "abc/def",
-      quantity: 12,
-      description: "a great snowglobe c",
-      price: 20.99,
-    },
-    {
-      id: 4,
-      name: "tai snowglobe",
-      imageUrl: "abc/def",
-      quantity: 9,
-      description: "a great snowglobe c",
-      price: 40.99,
-    },
-  ],
-};
-
-const testCart = mock_shopping_cart.data;
 
 class Cart extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      total: 0,
-    };
-    this.calculateTotal = this.calculateTotal.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
-  calculateTotal(array) {
-    this.setState({
-      total: array.reduce((acc, cur) => (acc += cur.price * cur.quantity), 0),
-    });
-  }
-
-  componentDidMount() {
-    //if there is a user logged in, they'll want their cart, right?
-    if(this.props.auth.id){
-      this.props.fetchCart();
+  async componentDidMount() {
+    if (this.props.auth.id) {
+      await this.props.fetchCart();
     }
-    this.calculateTotal(this.props.cart);
-    // for testing:
-    this.calculateTotal(testCart);
+  }
+
+  async handleRemove(e) {
+    e.preventDefault();
+    await this.props.removeFromCart(e.target.id);
+    await this.props.fetchCart();
   }
 
   render() {
-    const cart = this.props.cart
-    const auth = this.props.auth;
-    return cart.length === 0 ? <div>Your Cart is Empty!</div> :
-    (
-      <div>
-        <h1>Cart</h1>
-        <h1>Greetings {auth.firstName || 'Guest'}, here is your cart!</h1>
-        <div>
-          {/* {cart.map((cartItem, index) => {
-            return (
-              <div key={cartItem.id}>
-                <div>Quantity: {cartItem.quantity}</div>
-              </div>
-            )
-            })
-          } */}
+    let CartProducts;
+    if (this.props.cart.products.length > 0) {
+      CartProducts = this.props.cart.products.map(item => {
+        return (
+          <div key={item.id}>
+            <h3>{item.name}</h3>
+            <button id={item.cart_products.id} onClick={this.handleRemove}>
+              Remove
+            </button>
           </div>
-
-        <h2>Total: {this.state.total}</h2>
+        );
+      });
+    }
+    if (this.props.cart.products.length === 0) {
+      CartProducts = <h3>Your cart is empty</h3>;
+    }
+    // dont show the checkout button if cart is empty
+    let CheckoutButton;
+    if (this.props.cart.products.length > 0) {
+      CheckoutButton = (
         <Link to="/checkout">
           <button>Checkout</button>
         </Link>
+      );
+    }
+    return (
+      <div>
+        <h1>Cart</h1>
+        {CartProducts}
+        {CheckoutButton}
       </div>
     );
   }
@@ -102,10 +64,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchCart: () => dispatch(fetchCart()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, { removeFromCart, fetchCart })(Cart);
