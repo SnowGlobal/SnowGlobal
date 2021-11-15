@@ -34,6 +34,7 @@ const Routes = () => {
         <Route path="/checkout" component={Checkout} />
         <Route path="/checkout-submit" component={CheckoutSubmit}/>
         <Route exact path="/admin" component={AdminHomePage} />
+        {/* JOE_CR: Consider nesting this route inside of AdminHomePage. React Router is powerful when nesting routes. */}
         <Route path="/admin/edit/:id" component={AdminEditProductPage} />
         {/* Displays our Login component as a fallback */}
         <Redirect to="/" />

@@ -20,6 +20,7 @@ const middleware = composeWithDevTools(
 const store = createStore(reducer, middleware);
 
 export default store;
+// JOE_CR: Interesting. Are these exports ever used?
 export * from "./auth";
 export * from "./Products";
 export * from "./Cart";

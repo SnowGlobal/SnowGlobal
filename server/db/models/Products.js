@@ -2,16 +2,20 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 module.exports = db.define('products', {
+  // JOE_CR: Consider renaming this column eventually to something more descriptive, and that will
+  // not conflict with an automatic association column.
   productId: {
     type: Sequelize.STRING,
     allowNull: false,
   },
 
+  // JOE_CR: Consider adding more validations like "notEmpty" in the future.
   name: {
     type: Sequelize.STRING,
     allowNull: false,
   },
 
+  // JOE_CR: Cents? Dollars?
   price: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -36,6 +40,7 @@ module.exports = db.define('products', {
     },
   },
 
+  // JOE_CR: Consider making categories its own model/table and associating.
   category: {
     type: Sequelize.STRING,
     allowNull: false,

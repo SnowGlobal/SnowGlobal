@@ -3,6 +3,8 @@
 const db = require('./db')
 
 const User = require('./models/User')
+// JOE_CR: Random model pluralization. Products is unlike User, Cart.
+// Singular/plural doesn't matter so much, as long as it all matches.
 const Products = require('./models/Products')
 const Cart = require('./models/Cart')
 const CartProducts = require('./models/CartProducts')
