@@ -40,13 +40,21 @@ const dummyCart = [
 export class Checkout extends React.Component {
   constructor(props) {
     super(props);
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
+
+  async componentDidMount() {
+    if (this.props.auth.id) {
+      await this.props.fetchCart();
+    }
+  }
+
   handleSubmit(evt) {
     evt.preventDefault();
   }
 
   render() {
-    console.log(this.props);
+    const cart = this.props.cart.products
     return (
       <div>
         <h1>Checkout</h1>
@@ -58,13 +66,14 @@ export class Checkout extends React.Component {
               <th>Quantity</th>
               <th>Total</th>
             </tr>
-            {dummyCart.map((product) => {
+            {cart.map((product) => {
               return (
                 <tr key={product.id}>
                   <td>{product.name}</td>
                   <td>{product.price}</td>
-                  <td>{product.quantity}</td>
-                  <td>{product.price * product.quantity}</td>
+                  <td>cart_products quantity</td>
+
+                  <td>{product.price }</td>
                 </tr>
               );
             })}
@@ -73,12 +82,12 @@ export class Checkout extends React.Component {
         <h3>Order Information</h3>
         <form className="checkout-form" onSubmit={this.handleSubmit}>
           <label>Shipping Information</label>
-          <input name="address" placeholder="Address" />
+          <input name="address" placeholder={this.props.auth.address}/>
           <input name="state" placeholder="State" />
           <input name="zipcode" placeholder="Zipcode" />
           <label>Customer Information</label>
-          <input name="firstName" placeholder="First Name" />
-          <input name="lastName" placeholder="Last Name" />
+          <input name="firstName" placeholder={this.props.auth.firstName} />
+          <input name="lastName" placeholder={this.props.auth.lastName} />
           <Link to={`/checkout-submit`}>
             <button type="submit">Confirm Checkout</button>
           </Link>
@@ -91,6 +100,7 @@ export class Checkout extends React.Component {
 const mapState = (state) => {
   return {
     cart: state.cart,
+    auth: state.auth,
   };
 };
 const mapDispatch = (dispatch) => ({
