@@ -17,6 +17,9 @@ const _removeFromCart = product => ({
 
 //thunk creators
 export const removeFromCart = id => {
+  // JOE_CR: Consider centralizing the logic of accessing your token and including it
+  // as a header in your AJAX requests. You will do this often and the more times you repeat,
+  // the more places you will have to update.
   const token = localStorage.getItem("token");
   if (token) {
     return async dispatch => {

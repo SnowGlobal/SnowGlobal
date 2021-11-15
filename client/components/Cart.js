@@ -11,6 +11,7 @@ class Cart extends React.Component {
 
   async componentDidMount() {
     if (this.props.auth.id) {
+      // JOE_CR: Unnecessary await.
       await this.props.fetchCart();
     }
   }
@@ -22,6 +23,8 @@ class Cart extends React.Component {
   }
 
   render() {
+    // JOE_CR: Capitalized variable names should be indicative of something being a class
+    // or have some other significance.
     let CartProducts;
     if (this.props.cart.products.length > 0) {
       CartProducts = this.props.cart.products.map(item => {

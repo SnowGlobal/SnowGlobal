@@ -9,6 +9,7 @@ export class SingleProductPage extends React.Component {
   }
 
   addToCart = (id) => {
+    // JOE_CR: This seems like a possible bug.
     event.preventDefault();
     //in this if statement check if the user id exists
     if(this.props.auth.id){
@@ -48,6 +49,7 @@ export class SingleProductPage extends React.Component {
           <div className='single-product-description'>
             <h3>
               {product.name}
+              {/* JOE_CR: Nice emoji :D */}
               <div>{'⭐'.repeat(product.rating)}</div>
               <p>{`$${product.price}`}</p>
             </h3>
