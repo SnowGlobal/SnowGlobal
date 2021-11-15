@@ -5,6 +5,7 @@ import AllProducts from "./components/AllProducts";
 import { Login, Signup } from "./components/AuthForm";
 import LandingPage from "./components/LandingPage";
 import Checkout from "./components/Checkout";
+import CheckoutSubmit from "./components/checkoutSubmit";
 import SingleProductPage from "./components/SingleProduct";
 import Cart from "./components/Cart";
 import AdminHomePage from "./components/AdminHomePage";
@@ -31,6 +32,7 @@ const Routes = () => {
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />
+        <Route path="/checkout-submit" component={CheckoutSubmit}/>
         <Route exact path="/admin" component={AdminHomePage} />
         <Route path="/admin/edit/:id" component={AdminEditProductPage} />
         {/* Displays our Login component as a fallback */}
