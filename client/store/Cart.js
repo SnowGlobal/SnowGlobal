@@ -89,11 +89,26 @@ export const fetchCart = () => {
     };
   }
 };
+// guest cart
 
-// export const localCartProducts = () => {
-//   const cart = JSON.parse(localStorage.getItem("cart"));
-//   return _getCart(cart);
-// };
+export const localCartProducts = () => {
+  const cart = JSON.parse(localStorage.getItem("cart"));
+  return _getCart(cart);
+};
+
+export const localCartAdd = product => {
+  const cart = JSON.parse(localStorage.getItem("cart"));
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  return _addToCart(product);
+};
+
+export const localCartRemove = productId => {
+  const cart = JSON.parse(localStorage.getItem("cart"));
+  const newCart = cart.filter(product => product.id !== productId);
+  localStorage.setItem("cart", JSON.stringify(newCart));
+  return _removeFromCart(productId);
+};
 
 // export const clearCart = () => {
 //   const token = localStorage.getItem("token");
@@ -137,7 +152,7 @@ export default function (state = initialState, action) {
     case ADD_TO_CART:
       return {
         ...state,
-        products: [...state.products, action.product],
+        products: action.products,
       };
     default:
       return state;
