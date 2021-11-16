@@ -47,12 +47,6 @@ export class Checkout extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  totaler(productTotal){
-    this.setState({
-      total : productTotal
-    })
-  }
-
   async componentDidMount() {
     if (this.props.auth.id) {
       await this.props.fetchCart();
@@ -60,15 +54,14 @@ export class Checkout extends React.Component {
     }
   }
 
-
-
   handleSubmit(evt) {
     evt.preventDefault();
-
+    //while()
   }
 
   render() {
     const cart = this.props.cart.products
+    console.log(cart);
     this.state.total = 0
     return (
       <div>
