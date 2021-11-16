@@ -15,28 +15,33 @@ class Cart extends React.Component {
     }
   }
 
-  async handleRemove(e) {
-    e.preventDefault();
-    await this.props.removeFromCart(e.target.id);
+  async handleRemove(id) {
+    await this.props.removeFromCart(id);
     await this.props.fetchCart();
   }
 
   render() {
     let CartProducts;
+    if (!this.props.cart.products || this.props.cart.products.length === 0) {
+      console.log(this.props.cart.products);
+      return <div>Cart Empty</div>;
+    }
     if (this.props.cart.products.length > 0) {
       CartProducts = this.props.cart.products.map(item => {
         return (
           <div key={item.id}>
             <h3>{item.name}</h3>
-            <button id={item.cart_products.id} onClick={this.handleRemove}>
-              Remove
+            <h4>
+              {`$`}
+              {item.price}
+            </h4>
+            <p>{item.cart_products?.quantity}</p>
+            <button onClick={() => this.handleRemove(item.cart_products.id)}>
+              Remove from Cart
             </button>
           </div>
         );
       });
-    }
-    if (this.props.cart.products.length === 0) {
-      CartProducts = <h3>Your cart is empty</h3>;
     }
     // dont show the checkout button if cart is empty
     let CheckoutButton;
@@ -64,4 +69,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { removeFromCart, fetchCart })(Cart);
+const mapDispatchToProps = dispatch => {
+  return {
+    removeFromCart: id => dispatch(removeFromCart(id)),
+    fetchCart: () => dispatch(fetchCart()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
