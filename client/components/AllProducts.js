@@ -18,9 +18,9 @@ export class AllProducts extends React.Component {
   }
 
   // add product to cart
-  handleAddToCart(id) {
-    this.props.addToCart(id);
-    this.props.fetchCart();
+  async handleAddToCart(id) {
+    await this.props.addToCart(id);
+    await this.props.fetchCart();
   }
 
   render() {
