@@ -209,5 +209,5 @@ table , td{
 
 }
 .checkout-total {
-  box-sizing: content-box;
+  border-collapse: collapse;
 }

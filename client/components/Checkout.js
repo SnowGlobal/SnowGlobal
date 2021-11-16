@@ -87,7 +87,7 @@ export class Checkout extends React.Component {
             })}
             <tr className="checkout-total">
               <td>Total</td>
-              <td>{this.state.total}</td>
+              <td>${this.state.total}</td>
               </tr>
           </tbody>
         </table>
