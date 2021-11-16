@@ -15,9 +15,8 @@ class Cart extends React.Component {
     }
   }
 
-  async handleRemove(e) {
-    e.preventDefault();
-    await this.props.removeFromCart(e.target.id);
+  async handleRemove(id) {
+    await this.props.removeFromCart(id);
     await this.props.fetchCart();
   }
 
@@ -28,8 +27,8 @@ class Cart extends React.Component {
         return (
           <div key={item.id}>
             <h3>{item.name}</h3>
-            <button id={item.cart_products.id} onClick={this.handleRemove}>
-              Remove
+            <button onClick={() => this.handleRemove(item.cart_products.id)}>
+              Remove from Cart
             </button>
           </div>
         );
@@ -64,4 +63,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { removeFromCart, fetchCart })(Cart);
+const mapDispatchToProps = dispatch => {
+  return {
+    removeFromCart: id => dispatch(removeFromCart(id)),
+    fetchCart: () => dispatch(fetchCart()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
