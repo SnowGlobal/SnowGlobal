@@ -40,14 +40,27 @@ const dummyCart = [
 export class Checkout extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      total: 0
+    }
+    this.totaler = this.totaler.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  totaler(productTotal){
+    this.setState({
+      total : productTotal
+    })
   }
 
   async componentDidMount() {
     if (this.props.auth.id) {
       await this.props.fetchCart();
+      this.state.total = 0
     }
   }
+
+
 
   handleSubmit(evt) {
     evt.preventDefault();
@@ -55,6 +68,7 @@ export class Checkout extends React.Component {
 
   render() {
     const cart = this.props.cart.products
+    this.state.total = 0
     return (
       <div>
         <h1>Checkout</h1>
@@ -64,19 +78,24 @@ export class Checkout extends React.Component {
               <th>Item</th>
               <th>Price</th>
               <th>Quantity</th>
-              <th>Total</th>
+              <th>Subtotal</th>
             </tr>
             {cart.map((product) => {
+
+              this.state.total += product.price * product.cart_products.quantity
               return (
                 <tr key={product.id}>
                   <td>{product.name}</td>
                   <td>{product.price}</td>
-                  <td>cart_products quantity</td>
-
-                  <td>{product.price }</td>
+                  <td>{product.cart_products.quantity}</td>
+                  <td>{product.price * product.cart_products.quantity}</td>
                 </tr>
               );
             })}
+            <tr>
+              <td>Total</td>
+              <td>{this.state.total}</td>
+              </tr>
           </tbody>
         </table>
         <h3>Order Information</h3>
