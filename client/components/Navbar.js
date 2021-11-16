@@ -9,7 +9,7 @@ const Navbar = ({ handleClick, isLoggedIn, toggleCart }) => (
       <h1>SnowGlobal</h1>
     </Link>
     <Link to="/cart">
-      <button onClick={toggleCart}>Cart</button>
+      <button>Cart</button>
     </Link>
     <nav>
       {isLoggedIn ? (
