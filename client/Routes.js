@@ -33,6 +33,7 @@ class Routes extends React.Component {
           <Route path="/signup" component={Signup} />
           <Route path="/cart" component={Cart} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/checkout-submit" component={CheckoutSubmit}/>
           <Route exact path="/admin" component={AdminHomePage} />
           <Route path="/admin/edit/:id" component={AdminEditProductPage} />
           {/* Displays our Login component as a fallback */}

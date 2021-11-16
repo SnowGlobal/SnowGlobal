@@ -43,7 +43,6 @@ export class Checkout extends React.Component {
     this.state = {
       total: 0
     }
-    this.totaler = this.totaler.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
