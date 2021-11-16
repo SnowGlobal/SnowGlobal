@@ -5,6 +5,7 @@ import AllProducts from "./components/AllProducts";
 import { Login, Signup } from "./components/AuthForm";
 import LandingPage from "./components/LandingPage";
 import Checkout from "./components/Checkout";
+import CheckoutSubmit from "./components/checkoutSubmit";
 import SingleProductPage from "./components/SingleProduct";
 import Cart from "./components/Cart";
 import AdminHomePage from "./components/AdminHomePage";
