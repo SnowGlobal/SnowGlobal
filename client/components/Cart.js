@@ -49,7 +49,7 @@ class Cart extends React.Component {
               {item.price} * {quantity} = {`$`} {item.price * quantity}
             </h4>
             <p>
-              Total Quantity: {quantity}
+              Total Quantity: {quantity} <br />
               <span>
                 <button
                   onClick={this.handleQuantity}

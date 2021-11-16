@@ -31,7 +31,7 @@ router.delete("/:id", requireToken, async (req, res, next) => {
     if (req.user) {
       let cart = await CartProducts.findByPk(req.params.id);
       await cart.destroy();
-      res.json({ message: "Product removed from cart" });
+      res.json(cart);
     } else {
       res.sendStatus(401);
     }
@@ -96,6 +96,13 @@ router.put("/:productId", requireToken, async (req, res, next) => {
     })
     cartProduct.quantity = req.body.quantity;
     await cartProduct.save();
+
+    //get the updated cart
+    cart = await Cart.findOne({
+      where: { userId: req.user.id },
+      include: [{ model: Products }],
+    })
+
     res.send(cart);
   } catch (e) {
     next(e);
