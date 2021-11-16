@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { removeFromCart, fetchCart } from "../store/Cart";
+import { removeFromCart, fetchCart, updateCart } from "../store/Cart";
 import { Link } from "react-router-dom";
 
 class Cart extends React.Component {
@@ -24,14 +24,12 @@ class Cart extends React.Component {
   handleQuantity(event) {
     if(event.target.name === "increment") {
       //by setting a + in front of the value, we can use parseInt to convert it to an integer
-      console.log(+event.target.value + 1)
-      // this.props.updateQuantity(event.target.id, +event.target.value + 1);
+      // console.log(+event.target.value + 1)
+      this.props.updateCart(event.target.id, +event.target.value + 1);
     } else {
-      console.log(+event.target.value - 1)
-      // this.props.updateQuantity(event.target.id, +event.target.value - 1);
+      // console.log(+event.target.value - 1)
+      this.props.updateCart(event.target.id, +event.target.value - 1);
     }
-
-    console.log('you clicked on this item', event.target.value)
   }
 
   render() {
@@ -106,7 +104,7 @@ const mapDispatchToProps = dispatch => {
   return {
     removeFromCart: id => dispatch(removeFromCart(id)),
     fetchCart: () => dispatch(fetchCart()),
-    // updateQuantity: (id, quantity) => dispatch(updateQuantity(id, quantity));
+    updateCart: (id, quantity) => dispatch(updateCart(id, quantity)),
   };
 };
 
