@@ -4,6 +4,7 @@ import axios from "axios";
 const GET_CART = "GET_CART";
 const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 const ADD_TO_CART = "ADD_TO_CART";
+const UPDATE_CART = "UPDATE_CART";
 
 //action creators
 const _addToCart = product => ({
@@ -19,6 +20,11 @@ const _getCart = cart => ({
 const _removeFromCart = product => ({
   type: REMOVE_FROM_CART,
   productId: product.id,
+});
+
+const _updateCart = cart => ({
+  type: UPDATE_CART,
+  cart
 });
 
 //thunk creators
@@ -89,6 +95,25 @@ export const fetchCart = () => {
     };
   }
 };
+
+export const updateCart = (id, quantity) => {
+  const token = window.localStorage.getItem("token");
+  if (token) {
+    return async dispatch => {
+      try {
+        const { data } = await axios.put(`/api/cart/${id}`, { quantity }, {
+          headers: {
+            authorization: token,
+          },
+        });
+        return dispatch(_updateCart(data));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  }
+};
+
 // guest cart
 
 export const localCartProducts = () => {
@@ -153,6 +178,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         products: action.products,
+      };
+    case UPDATE_CART:
+      return {
+        ...state,
+        products: action.cart.products,
+        total: action.cart.total,
       };
     default:
       return state;

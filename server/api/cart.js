@@ -3,30 +3,35 @@ const {
   models: { User, Products, Cart, CartProducts },
 } = require("../db");
 
-router.get("/", async (req, res, next) => {
+const requireToken = async (req, res, next) => {
+  const { authorization } = req.headers;
+  const user = await User.findByToken(authorization);
+  if(user) {
+    req.user = user;
+    next();
+  } else {
+    return res.status(401).send({ error: "Please Sign Up" });
+  }
+};
+
+router.get("/", requireToken, async (req, res, next) => {
   try {
-    let user = await User.findByToken(req.headers.authorization);
-    if (user) {
-      let cart = await Cart.findOne({
-        where: { userId: user.id },
-        include: [{ model: Products }],
-      });
-      res.send(cart);
-    } else {
-      res.sendStatus(401);
-    }
+    let cart = await Cart.findOne({
+      where: { userId: req.user.id },
+      include: [{ model: Products }],
+    });
+    res.send(cart);
   } catch (e) {
     next(e);
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", requireToken, async (req, res, next) => {
   try {
-    let user = await User.findByToken(req.headers.authorization);
-    if (user) {
+    if (req.user) {
       let cart = await CartProducts.findByPk(req.params.id);
       await cart.destroy();
-      res.json({ message: "Product removed from cart" });
+      res.json(cart);
     } else {
       res.sendStatus(401);
     }
@@ -35,13 +40,12 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/:productId", async (req, res, next) => {
+router.post("/:productId", requireToken, async (req, res, next) => {
   try {
-    let user = await User.findByToken(req.headers.authorization);
-    if (user) {
+    if (req.user) {
       let product = await Products.findByPk(req.params.productId);
       let cart = await Cart.findOne({
-        where: { userId: user.id },
+        where: { userId: req.user.id },
         include: [{ model: Products }],
       });
       if (cart) {
@@ -63,7 +67,7 @@ router.post("/:productId", async (req, res, next) => {
         }
       } else {
         cart = await Cart.create({
-          userId: user.id,
+          userId: req.user.id,
         });
         await CartProducts.create({
           CartId: cart.id,
@@ -75,6 +79,31 @@ router.post("/:productId", async (req, res, next) => {
     } else {
       res.sendStatus(401);
     }
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.put("/:productId", requireToken, async (req, res, next) => {
+  try {
+    let product = await Products.findByPk(req.params.productId);
+    let cart = await Cart.findOne({
+      where: { userId: req.user.id },
+      include: [{ model: Products }],
+    })
+    let cartProduct = await CartProducts.findOne({
+      where: { CartId: cart.id, productId: product.id },
+    })
+    cartProduct.quantity = req.body.quantity;
+    await cartProduct.save();
+
+    //get the updated cart
+    cart = await Cart.findOne({
+      where: { userId: req.user.id },
+      include: [{ model: Products }],
+    })
+
+    res.send(cart);
   } catch (e) {
     next(e);
   }
