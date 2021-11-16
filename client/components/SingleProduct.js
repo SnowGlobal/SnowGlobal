@@ -24,7 +24,6 @@ export class SingleProductPage extends React.Component {
   async addToCart (event, id){
     //in this if statement check if the user id exists
     event.preventDefault();
-    console.log(this.state.quantity)
     if(this.props.auth.id){
       await this.props.addToCart(id, +this.state.quantity);
       //if the user exists, get an array of the user's cart items by id
@@ -47,7 +46,6 @@ export class SingleProductPage extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     const { id } = this.props.auth;
     const { product } = this.props;
     return (
