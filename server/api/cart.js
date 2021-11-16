@@ -62,7 +62,7 @@ router.post("/:productId", requireToken, async (req, res, next) => {
           await CartProducts.create({
             CartId: cart.id,
             productId: product.id,
-            quantity: 1,
+            quantity: req.body.quantity,
           });
         }
       } else {
@@ -72,7 +72,7 @@ router.post("/:productId", requireToken, async (req, res, next) => {
         await CartProducts.create({
           CartId: cart.id,
           productId: product.id,
-          quantity: 1,
+          quantity: req.body.quantity,
         });
       }
       res.json({});

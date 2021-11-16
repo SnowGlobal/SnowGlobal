@@ -24,10 +24,8 @@ class Cart extends React.Component {
   handleQuantity(event) {
     if(event.target.name === "increment") {
       //by setting a + in front of the value, we can use parseInt to convert it to an integer
-      // console.log(+event.target.value + 1)
       this.props.updateCart(event.target.id, +event.target.value + 1);
     } else {
-      // console.log(+event.target.value - 1)
       this.props.updateCart(event.target.id, +event.target.value - 1);
     }
   }

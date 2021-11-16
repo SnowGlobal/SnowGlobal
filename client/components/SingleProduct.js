@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleProduct } from '../store/singleProduct';
 import { Link } from "react-router-dom";
+import { addToCart, fetchCart } from "../store/Cart";
 
 export class SingleProductPage extends React.Component {
   constructor(props){
@@ -13,15 +14,19 @@ export class SingleProductPage extends React.Component {
     this.addToCart = this.addToCart.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.id);
+    if (this.props.auth.id) {
+      await this.props.fetchCart();
+    }
   }
 
-  addToCart = (event, id) => {
+  async addToCart (event, id){
     //in this if statement check if the user id exists
     event.preventDefault();
+    console.log(this.state.quantity)
     if(this.props.auth.id){
-      console.log('hello world i can see you are logged in as ', this.props.auth)
+      await this.props.addToCart(id, +this.state.quantity);
       //if the user exists, get an array of the user's cart items by id
       // let idArray = this.props.cart.map(product => product.productId) //pseudocode
       // if(idArray.includes(id)){
@@ -42,8 +47,8 @@ export class SingleProductPage extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     const { id } = this.props.auth;
-    console.log('this is the auth in the single product', id)
     const { product } = this.props;
     return (
       <div>
@@ -63,7 +68,14 @@ export class SingleProductPage extends React.Component {
             <form>
             <p className='quantity-box'>
               <label htmlFor='quantity'>Quantity: </label>
-              <input className='quantity' type="number" name="quantity" min="1" max="10" defaultValue={this.state.quantity}/>
+              <input
+                className='quantity'
+                type="number"
+                name="quantity"
+                min="1" max="10"
+                defaultValue={this.state.quantity}
+                onChange={(event) => this.setState({quantity: event.target.value})}
+              />
             </p>
               <button
                 type="submit"
@@ -84,13 +96,16 @@ export class SingleProductPage extends React.Component {
 const mapState = state => {
   return {
     product: state.singleProduct,
-    auth: state.auth
+    auth: state.auth,
+    cart: state.cart,
   };
 };
 
 const mapDispatch = dispatch => {
   return {
     fetchSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
+    addToCart: (id, quantity) => dispatch(addToCart(id, quantity)),
+    fetchCart: () => dispatch(fetchCart()),
   };
 };
 
