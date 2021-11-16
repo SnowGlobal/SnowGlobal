@@ -4,13 +4,22 @@ import { fetchSingleProduct } from '../store/singleProduct';
 import { Link } from "react-router-dom";
 
 export class SingleProductPage extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      quantity: 1
+    }
+
+    this.addToCart = this.addToCart.bind(this);
+  }
+
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.id);
   }
 
-  addToCart = (id) => {
-    event.preventDefault();
+  addToCart = (event, id) => {
     //in this if statement check if the user id exists
+    event.preventDefault();
     if(this.props.auth.id){
       console.log('hello world i can see you are logged in as ', this.props.auth)
       //if the user exists, get an array of the user's cart items by id
@@ -54,11 +63,11 @@ export class SingleProductPage extends React.Component {
             <form>
             <p className='quantity-box'>
               <label htmlFor='quantity'>Quantity: </label>
-              <input className='quantity' type="number" name="quantity" min="1" max="10" defaultValue="1"/>
+              <input className='quantity' type="number" name="quantity" min="1" max="10" defaultValue={this.state.quantity}/>
             </p>
               <button
                 type="submit"
-                onClick={() => this.addToCart(product.id)}
+                onClick={(event) => this.addToCart(event, product.id)}
               >Add to Cart</button>
             </form>
             <p>{product.description}</p>

@@ -19,7 +19,7 @@ export class AllProducts extends React.Component {
 
   // add product to cart
   async handleAddToCart(id) {
-    await this.props.addToCart(id);
+    await this.props.addToCart(id, 1);
     await this.props.fetchCart();
   }
 
@@ -70,7 +70,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchProducts: () => dispatch(fetchProducts()),
-    addToCart: id => dispatch(addToCart(id)),
+    addToCart: (id, quantity) => dispatch(addToCart(id, quantity)),
     fetchCart: () => dispatch(fetchCart()),
   };
 };

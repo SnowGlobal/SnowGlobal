@@ -28,14 +28,14 @@ const _updateCart = cart => ({
 });
 
 //thunk creators
-export const addToCart = id => {
+export const addToCart = (id, quantity) => {
   const token = localStorage.getItem("token");
   if (token) {
     return async dispatch => {
       try {
         const { data } = await axios.post(
           `/api/cart/${id}`,
-          {},
+          { quantity },
           {
             headers: {
               Authorization: token,

@@ -56,7 +56,7 @@ router.post("/:productId", requireToken, async (req, res, next) => {
           },
         });
         if (cartProduct) {
-          cartProduct.quantity += 1;
+          cartProduct.quantity += req.body.quantity;
           await cartProduct.save();
         } else {
           await CartProducts.create({
