@@ -208,3 +208,6 @@ table , td{
   width: 300px
 
 }
+.checkout-total {
+  box-sizing: content-box;
+}

@@ -64,6 +64,7 @@ export class Checkout extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
+
   }
 
   render() {
@@ -92,7 +93,7 @@ export class Checkout extends React.Component {
                 </tr>
               );
             })}
-            <tr>
+            <tr className="checkout-total">
               <td>Total</td>
               <td>{this.state.total}</td>
               </tr>
@@ -101,12 +102,12 @@ export class Checkout extends React.Component {
         <h3>Order Information</h3>
         <form className="checkout-form" onSubmit={this.handleSubmit}>
           <label>Shipping Information</label>
-          <input name="address" placeholder={this.props.auth.address}/>
+          <input name="address" placeholder={this.props.auth.address?this.props.auth.address:"Address"}/>
           <input name="state" placeholder="State" />
           <input name="zipcode" placeholder="Zipcode" />
           <label>Customer Information</label>
-          <input name="firstName" placeholder={this.props.auth.firstName} />
-          <input name="lastName" placeholder={this.props.auth.lastName} />
+          <input name="firstName" placeholder={this.props.auth.firstName?this.props.auth.firstName:"First Name"} />
+          <input name="lastName" placeholder={this.props.auth.lastName?this.props.auth.lastName:"Last Name"} />
           <Link to={`/checkout-submit`}>
             <button type="submit">Confirm Checkout</button>
           </Link>
