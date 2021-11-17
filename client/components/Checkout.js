@@ -5,38 +5,6 @@ import { deleteProduct } from "../store/Products";
 import { fetchCart } from "../store/Cart";
 import checkoutSubmit, { CheckoutSubmit } from "./checkoutSubmit";
 
-///this is not explicitly laid out yet, but presuming
-///the checkout component is being passed several product objects
-//the component should bring you to a confirmation page
-//on submit remove items from db
-
-const dummyCart = [
-  {
-    id: 1,
-    productId: "73-0144764",
-    name: "Oriental short-clawed otter Snowglobe",
-    price: 12,
-    description:
-      "Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit. Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",
-    imageUrl: "http://dummyimage.com/x.png/5fa2dd/ffffff",
-    inventory: 51,
-    category: "small",
-    quantity: 2,
-  },
-  {
-    id: 2,
-    productId: "60-5809053",
-    name: "Lizard (unidentified) Snowglobe",
-    price: 54,
-    description:
-      "Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus. Pellentesque eget nunc.",
-    imageUrl: "http://dummyimage.com/x.png/5fa2dd/ffffff",
-    inventory: 3,
-    category: "small",
-    quantity: 1,
-  },
-];
-
 export class Checkout extends React.Component {
   constructor(props) {
     super(props);

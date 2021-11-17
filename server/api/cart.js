@@ -26,6 +26,23 @@ router.get("/", requireToken, async (req, res, next) => {
   }
 });
 
+router.delete("/", requireToken, async (req,res,next)=>{
+  try{
+    if (req.user){
+      let cart = await Cart.findAll({
+        where: { userId: req.user.id}
+      })
+      await cart.destroy();
+      res.json(cart)
+    }else{
+      res.sendStatus(401)
+    }
+  }
+  catch(e){
+    next(e)
+  }
+})
+
 router.delete("/:id", requireToken, async (req, res, next) => {
   try {
     if (req.user) {

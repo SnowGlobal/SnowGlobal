@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchCart } from "../store/Cart";
 import { Link } from "react-router-dom";
+import { clearCart } from "../store";
 
 export class CheckoutSubmit extends React.Component {
   constructor(props) {
@@ -11,13 +12,14 @@ export class CheckoutSubmit extends React.Component {
   componentDidMount() {
     if(this.props.auth.id){
       this.props.fetchCart();
+      this.props.clearCart(this.props.cart)
     }
   }
 
   render() {
     const cart = this.props.cart;
     const auth = this.props.auth;
-    console.log(auth);
+    console.log(cart);
     return (
       <div>
         <h1>Thank you for your order {auth.firstName}!</h1>
@@ -36,6 +38,7 @@ const mapState = state => {
 };
 const mapDispatch = (dispatch) => ({
   fetchCart: () => dispatch(fetchCart()),
+  clearCart: (cart) => dispatch(clearCart(cart))
 });
 
 export default connect(mapState, mapDispatch)(CheckoutSubmit);
