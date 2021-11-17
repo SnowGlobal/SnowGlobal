@@ -26,27 +26,25 @@ export class AllProducts extends React.Component {
   render() {
     const products = this.props.products;
     return (
-      <div className={"all-products-container"}>
-        <h1>Shop All Snowglobes</h1>
-        <div className={"gallery"}>
+      <div>
+        <h2 className={"all-products-title"}>Shop All Snowglobes</h2>
+        <div className={"all-products"}>
           {products.map(product => {
             return (
-              <div className={"content"} key={product.id}>
+              <div className={"product-item"} key={product.id}>
                 <Link to={`/products/${product.id}`}>
                   <img
-                    className={"all-products-image"}
+                    className={"product-item-image"}
                     src={product.imageUrl}
+                    alt={product.name}
                   />
+                  <h4 className={"product-item-name"}>{product.name}</h4>
+                  <p
+                    className={"all-products-price"}
+                  >{`$${product.price}.00`}</p>
                 </Link>
-                <h2 className={"all-products-name"}>{product.name}</h2>
-                <div className={"all-product-description-container"}>
-                  <p className={"all-product-description"}>
-                    {product.description}
-                  </p>
-                </div>
-                <p className={"all-products-price"}>{`$${product.price}.00`}</p>
                 <button
-                  className={"all-products-button"}
+                  className={"btn-add-to-cart"}
                   onClick={() => this.handleAddToCart(product.id)}
                 >
                   Add to Cart

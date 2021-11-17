@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn, toggleCart }) => (
-  <div>
+  <div id={"nav"}>
     <Link to="/">
       <h1>SnowGlobal</h1>
     </Link>
