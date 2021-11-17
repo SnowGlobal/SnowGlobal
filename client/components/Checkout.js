@@ -2,17 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteProduct } from "../store/Products";
-import { fetchCart } from "../store/Cart";
-import checkoutSubmit, { CheckoutSubmit } from "./checkoutSubmit";
+import { fetchCart, clearCart } from "../store/Cart";
+import CheckoutSubmit from "./checkoutSubmit";
 
-<<<<<<< HEAD
-=======
 ///this is not explicitly laid out yet, but presuming
 ///the checkout component is being passed several product objects
 //the component should bring you to a confirmation page
 //on submit remove items from db
 
->>>>>>> 595bd4c4643ac2108c29721ebc553cfb8649ac1b
 export class Checkout extends React.Component {
   constructor(props) {
     super(props);
@@ -29,18 +26,16 @@ export class Checkout extends React.Component {
     }
   }
 
-  handleSubmit(evt) {
+  async handleSubmit(evt) {
     evt.preventDefault();
-    //while()
+    await this.props.clearCart()
+    this.props.history.push('/checkout-submit');
+
   }
 
   render() {
-<<<<<<< HEAD
-    const cart = this.props.cart.products
-    console.log(cart);
-    this.state.total = 0
-=======
->>>>>>> 595bd4c4643ac2108c29721ebc553cfb8649ac1b
+    const cart = this.props.cart.products;
+    this.total = 0
     return (
       <div>
         <h1>Checkout</h1>
@@ -80,7 +75,7 @@ export class Checkout extends React.Component {
           <input name="firstName" placeholder={this.props.auth.firstName?this.props.auth.firstName:"First Name"} />
           <input name="lastName" placeholder={this.props.auth.lastName?this.props.auth.lastName:"Last Name"} />
           <Link to={`/checkout-submit`}>
-            <button type="submit">Confirm Checkout</button>
+            <button type="submit" onClick={this.handleSubmit}>Confirm Checkout</button>
           </Link>
         </form>
       </div>
@@ -97,6 +92,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => ({
   fetchCart: () => dispatch(fetchCart()),
   deleteProduct: (id) => dispatch(deleteProduct(id)),
+  clearCart: () => dispatch(clearCart())
 });
 
 export default connect(mapState, mapDispatch)(Checkout);

@@ -28,7 +28,7 @@ const _updateCart = cart => ({
   cart
 });
 
-const _clearCart = cart =>({
+const _clearAction = cart =>({
   type: CLEAR_CART,
   cart
 })
@@ -84,17 +84,18 @@ export const removeFromCart = id => {
   }
 };
 
-export const clearCart = (cart) => {
+export const clearCart = (history) => {
   const token = localStorage.getItem("token");
   if (token){
     return async dispatch => {
       try {
-        const { data } = await axios.delete('api/cart', {
+        const { data } = await axios.delete(`/api/cart`, {
           headers: {
             Authorization: token,
           }
         })
-        dispatch(clearCart(data))
+        dispatch(_clearAction(data))
+        history.push('/checkout-submit');
       }
       catch(err){
        console.error(err)
