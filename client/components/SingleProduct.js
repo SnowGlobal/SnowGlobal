@@ -22,12 +22,15 @@ export class SingleProductPage extends React.Component {
     }
   }
 
+
   handleChange(event){
     this.setState({
       [event.target.name]: event.target.value
     })
   }
+  
   addToCart (event, id){
+    
     event.preventDefault();
 
     //basic validation
