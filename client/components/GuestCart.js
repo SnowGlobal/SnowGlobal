@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchProducts } from "../store/Products"
 
 class GuestCart extends React.Component {
@@ -86,6 +87,9 @@ class GuestCart extends React.Component {
             })
         )
         }
+        <Link to="/guest-checkout">
+          <button>Checkout</button>
+        </Link>
       </div>
     )
   }

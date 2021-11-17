@@ -1,24 +1,18 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { deleteProduct } from "../store/Products";
-import { fetchCart } from "../store/Cart";
-import checkoutSubmit, { CheckoutSubmit } from "./checkoutSubmit";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-///this is not explicitly laid out yet, but presuming
-///the checkout component is being passed several product objects
-//the component should bring you to a confirmation page
-//on submit remove items from db
-
-export class Checkout extends React.Component {
-  constructor(props) {
+class GuestCheckout extends React.Component {
+  constructor(props){
     super(props);
   }
-  handleSubmit(evt) {
-    evt.preventDefault();
+
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log('hey')
   }
 
   render() {
+    let productArray = JSON.parse(localStorage.getItem('cart'));
     return (
       <div>
         <h1>Checkout</h1>
@@ -30,7 +24,7 @@ export class Checkout extends React.Component {
               <th>Quantity</th>
               <th>Total</th>
             </tr>
-            {dummyCart.map((product) => {
+            {productArray.map((product) => {
               return (
                 <tr key={product.id}>
                   <td>{product.name}</td>
@@ -52,7 +46,7 @@ export class Checkout extends React.Component {
           <input name="firstName" placeholder="First Name" />
           <input name="lastName" placeholder="Last Name" />
           <Link to={`/checkout-submit`}>
-            <button type="submit">Confirm Checkout</button>
+            <button type='submit' onClick={this.handleSubmit}>Confirm Checkout</button>
           </Link>
         </form>
       </div>
@@ -60,14 +54,4 @@ export class Checkout extends React.Component {
   }
 }
 
-const mapState = (state) => {
-  return {
-    products: state.products,
-  };
-};
-const mapDispatch = (dispatch) => ({
-  getCart: () => dispatch(fetchCart()),
-  deleteProduct: (id) => dispatch(deleteProduct(id)),
-});
-
-export default connect(mapState, mapDispatch)(Checkout);
+export default GuestCheckout;
