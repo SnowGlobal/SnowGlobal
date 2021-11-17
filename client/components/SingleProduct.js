@@ -8,6 +8,7 @@ export class SingleProductPage extends React.Component {
     this.props.fetchSingleProduct(this.props.match.params.id);
   }
 
+  // WILL HAVE TO RE-WRITE THIS
   addToCart = (id) => {
     event.preventDefault();
     //in this if statement check if the user id exists
@@ -72,7 +73,7 @@ export class SingleProductPage extends React.Component {
   }
 }
 
-const mapState = state => {
+const mapState = state => { //
   return {
     product: state.singleProduct,
     auth: state.auth
@@ -86,3 +87,4 @@ const mapDispatch = dispatch => {
 };
 
 export default connect(mapState, mapDispatch)(SingleProductPage);
+
