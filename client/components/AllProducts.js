@@ -1,18 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchProducts } from '../store/Products';
-import { addToCart, fetchCart } from '../store/Cart';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchProducts } from "../store/Products";
+import { addToCart, fetchCart } from "../store/Cart";
 
 export class AllProducts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       products: [],
-      search: '',
-      category: '',
-      size: '',
-      quantity: 1
+      search: "",
+      category: "",
+      size: "",
+      quantity: 1,
     };
     this.handleAddToCart = this.handleAddToCart.bind(this);
   }
@@ -22,16 +22,16 @@ export class AllProducts extends React.Component {
 
   // add product to cart
   async handleAddToCart(id) {
-    if(this.props.auth.id){
+    if (this.props.auth.id) {
       await this.props.addToCart(id, 1);
       await this.props.fetchCart();
     } else {
-      if(!window.localStorage.cart){
+      if (!window.localStorage.cart) {
         window.localStorage.cart = JSON.stringify([]);
       }
       let cart = JSON.parse(window.localStorage.cart);
-      let productInCart = cart.filter(item => item.productId === id)
-      if(productInCart.length > 0){
+      let productInCart = cart.filter(item => item.productId === id);
+      if (productInCart.length > 0) {
         productInCart[0].quantity += +this.state.quantity;
       } else {
         let product = this.props.products[id - 1];
@@ -39,11 +39,11 @@ export class AllProducts extends React.Component {
           id,
           name: product.name,
           price: product.price,
-          quantity: +this.state.quantity
+          quantity: +this.state.quantity,
         });
       }
       window.localStorage.cart = JSON.stringify(cart);
-      this.props.history.push('/cart');
+      this.props.history.push("/cart");
     }
   }
 
@@ -110,11 +110,11 @@ export class AllProducts extends React.Component {
  }
 }
 
-const mapStateToProps = (state) => {
- return {
-   products: state.products,
-   auth: state.auth,
- };
+const mapStateToProps = state => {
+  return {
+    products: state.products,
+    auth: state.auth,
+  };
 };
 
 const mapDispatchToProps = dispatch => {

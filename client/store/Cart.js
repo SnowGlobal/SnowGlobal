@@ -5,6 +5,7 @@ const GET_CART = "GET_CART";
 const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 const ADD_TO_CART = "ADD_TO_CART";
 const UPDATE_CART = "UPDATE_CART";
+const CLEAR_CART = "CLEAR_CART";
 
 //action creators
 const _addToCart = product => ({
@@ -26,6 +27,11 @@ const _updateCart = cart => ({
   type: UPDATE_CART,
   cart
 });
+
+const _clearAction = cart =>({
+  type: CLEAR_CART,
+  cart
+})
 
 //thunk creators
 export const addToCart = (id, quantity) => {
@@ -78,6 +84,26 @@ export const removeFromCart = id => {
   }
 };
 
+export const clearCart = (history) => {
+  const token = localStorage.getItem("token");
+  if (token){
+    return async dispatch => {
+      try {
+        const { data } = await axios.delete(`/api/cart`, {
+          headers: {
+            Authorization: token,
+          }
+        })
+        dispatch(_clearAction(data))
+        history.push('/checkout-submit');
+      }
+      catch(err){
+       console.error(err)
+      }
+    }
+  }
+}
+
 export const fetchCart = () => {
   const token = window.localStorage.getItem("token");
   if (token) {
@@ -113,6 +139,8 @@ export const updateCart = (id, quantity) => {
     };
   }
 };
+
+
 
 // guest cart
 
@@ -174,6 +202,10 @@ export default function (state = initialState, action) {
           product => product.id !== action.productId
         ),
       };
+    case CLEAR_CART:
+      return {
+        ...state
+      }
     case ADD_TO_CART:
       return {
         ...state,
