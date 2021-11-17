@@ -29,20 +29,32 @@ class Cart extends React.Component {
     if (this.props.cart.products.length > 0) {
       CartProducts = this.props.cart.products.map(item => {
         return (
-          <div key={item.id}>
-            <h3>{item.name}</h3>
-            <h4>
-              {`$`}
-              {item.price}
-            </h4>
-            <p>{item.cart_products?.quantity}</p>
-            <button onClick={() => this.handleRemove(item.cart_products.id)}>
-              Remove from Cart
-            </button>
-          </div>
+          <aside className="cart-item" key={item.id}>
+            <div className="cart-item-image">
+              <img src={item.imageUrl} alt={item.name} />
+            </div>
+            <div className="cart-item-info">
+              <div className="cart-item-name">
+                <Link to={`/products/${item.id}`}>{item.name}</Link>
+              </div>
+              <div className="cart-item-price"> {`${item.price}`}</div>
+              <div className="cart-item-quantity">
+                Quantity: {item.quantity}
+              </div>
+              <div className="cart-item-remove">
+                <button
+                  className="btn-remove-from-cart"
+                  onClick={() => this.handleRemove(item.id)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </aside>
         );
       });
     }
+
     // dont show the checkout button if cart is empty
     let CheckoutButton;
     if (this.props.cart.products.length > 0) {
