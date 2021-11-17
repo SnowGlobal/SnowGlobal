@@ -10,6 +10,7 @@ export class AllProducts extends React.Component {
     this.state = {
       products: [],
       search: "",
+      quantity: 1
     };
     this.handleAddToCart = this.handleAddToCart.bind(this);
   }
@@ -19,8 +20,29 @@ export class AllProducts extends React.Component {
 
   // add product to cart
   async handleAddToCart(id) {
-    await this.props.addToCart(id, 1);
-    await this.props.fetchCart();
+    if(this.props.auth.id){
+      await this.props.addToCart(id, 1);
+      await this.props.fetchCart();
+    } else {
+      if(!window.localStorage.cart){
+        window.localStorage.cart = JSON.stringify([]);
+      }
+      let cart = JSON.parse(window.localStorage.cart);
+      let productInCart = cart.filter(item => item.productId === id)
+      if(productInCart.length > 0){
+        productInCart[0].quantity += +this.state.quantity;
+      } else {
+        let product = this.props.products[id - 1];
+        cart.push({
+          id,
+          name: product.name,
+          price: product.price,
+          quantity: +this.state.quantity
+        });
+      }
+      window.localStorage.cart = JSON.stringify(cart);
+      this.props.history.push('/cart');
+    }
   }
 
   render() {
