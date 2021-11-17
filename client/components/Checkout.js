@@ -13,29 +13,24 @@ import CheckoutSubmit from "./checkoutSubmit";
 export class Checkout extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      total: 0
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async componentDidMount() {
     if (this.props.auth.id) {
       await this.props.fetchCart();
-      this.state.total = 0
     }
   }
 
   async handleSubmit(evt) {
     evt.preventDefault();
-    await this.props.clearCart()
-    this.props.history.push('/checkout-submit');
-
+    await this.props.clearCart();
+    this.props.history.push("/checkout-submit");
   }
 
   render() {
     const cart = this.props.cart.products;
-    this.total = 0
+    let productTotal = 0;
     return (
       <div>
         <h1>Checkout</h1>
@@ -48,8 +43,8 @@ export class Checkout extends React.Component {
               <th>Subtotal</th>
             </tr>
             {cart.map((product) => {
+              productTotal += product.price * product.cart_products.quantity;
 
-              this.state.total += product.price * product.cart_products.quantity
               return (
                 <tr key={product.id}>
                   <td>{product.name}</td>
@@ -59,23 +54,41 @@ export class Checkout extends React.Component {
                 </tr>
               );
             })}
-            <tr className="checkout-total">
-              <td>Total</td>
-              <td>${this.state.total}</td>
-              </tr>
+            <tr>
+              <td>Total: ${productTotal}.00</td>
+            </tr>
           </tbody>
         </table>
         <h3>Order Information</h3>
         <form className="checkout-form" onSubmit={this.handleSubmit}>
           <label>Shipping Information</label>
-          <input name="address" placeholder={this.props.auth.address?this.props.auth.address:"Address"}/>
+          <input
+            name="address"
+            placeholder={
+              this.props.auth.address ? this.props.auth.address : "Address"
+            }
+          />
           <input name="state" placeholder="State" />
           <input name="zipcode" placeholder="Zipcode" />
           <label>Customer Information</label>
-          <input name="firstName" placeholder={this.props.auth.firstName?this.props.auth.firstName:"First Name"} />
-          <input name="lastName" placeholder={this.props.auth.lastName?this.props.auth.lastName:"Last Name"} />
+          <input
+            name="firstName"
+            placeholder={
+              this.props.auth.firstName
+                ? this.props.auth.firstName
+                : "First Name"
+            }
+          />
+          <input
+            name="lastName"
+            placeholder={
+              this.props.auth.lastName ? this.props.auth.lastName : "Last Name"
+            }
+          />
           <Link to={`/checkout-submit`}>
-            <button type="submit" onClick={this.handleSubmit}>Confirm Checkout</button>
+            <button type="submit" onClick={this.handleSubmit}>
+              Confirm Checkout
+            </button>
           </Link>
         </form>
       </div>
@@ -92,7 +105,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => ({
   fetchCart: () => dispatch(fetchCart()),
   deleteProduct: (id) => dispatch(deleteProduct(id)),
-  clearCart: () => dispatch(clearCart())
+  clearCart: () => dispatch(clearCart()),
 });
 
 export default connect(mapState, mapDispatch)(Checkout);

@@ -1,18 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 class GuestCheckout extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('hey')
   }
 
   render() {
-    let productArray = JSON.parse(localStorage.getItem('cart'));
+    let productArray = JSON.parse(localStorage.getItem("cart"));
+    let productTotal = 0;
     return (
       <div>
         <h1>Checkout</h1>
@@ -22,9 +22,10 @@ class GuestCheckout extends React.Component {
               <th>Item</th>
               <th>Price</th>
               <th>Quantity</th>
-              <th>Total</th>
+              <th>Subtotal</th>
             </tr>
             {productArray.map((product) => {
+              productTotal += product.price * product.quantity;
               return (
                 <tr key={product.id}>
                   <td>{product.name}</td>
@@ -34,6 +35,9 @@ class GuestCheckout extends React.Component {
                 </tr>
               );
             })}
+            <tr>
+              <td>Total ${productTotal}.00</td>
+            </tr>
           </tbody>
         </table>
         <h3>Customer Information</h3>
@@ -46,7 +50,9 @@ class GuestCheckout extends React.Component {
           <input name="firstName" placeholder="First Name" />
           <input name="lastName" placeholder="Last Name" />
           <Link to={`/checkout-submit`}>
-            <button type='submit' onClick={this.handleSubmit}>Confirm Checkout</button>
+            <button type="submit" onClick={this.handleSubmit}>
+              Confirm Checkout
+            </button>
           </Link>
         </form>
       </div>

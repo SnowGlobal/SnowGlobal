@@ -32,6 +32,7 @@ class Cart extends React.Component {
   }
 
   render() {
+    let productTotal = 0
     let cartProducts;
 
     if (!this.props.auth.id){
@@ -44,6 +45,10 @@ class Cart extends React.Component {
       cartProducts = this.props.cart.products.map(item => {
         //by utilizing optional chaining, we can safely access the item quantity
         let quantity = item.cart_products?.quantity
+
+
+        productTotal  += item.price * item.cart_products.quantity
+
         return (
           <div key={item.id}>
             <h3>{item.name}</h3>
@@ -73,6 +78,7 @@ class Cart extends React.Component {
             <button onClick={() => this.handleRemove(item.cart_products.id)}>
               Remove from Cart
             </button>
+            <h5>Total: ${productTotal}.00</h5>
           </div>
         );
       });

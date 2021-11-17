@@ -49,7 +49,7 @@ class GuestCart extends React.Component {
     if(productArray === null){
       productArray = [];
     }
-    this.total = 0;
+    this.total = 0
     return (
       <div className="guest-cart">
         {productArray.length === 0 ?
@@ -57,7 +57,7 @@ class GuestCart extends React.Component {
             productArray.map(item => {
               this.total += item.price * item.quantity
               return (
-                <div key={item.id}>
+                <div>
                   <h3>{item.name}</h3>
                   <h4>
                     {`$`}
