@@ -8,7 +8,8 @@ class GuestCart extends React.Component {
     super(props);
 
     this.state = {
-      something: "something"
+      something: "something",
+      total: 0
     }
     this.handleQuantity = this.handleQuantity.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
@@ -48,11 +49,13 @@ class GuestCart extends React.Component {
     if(productArray === null){
       productArray = [];
     }
+    this.total = 0;
     return (
       <div className="guest-cart">
         {productArray.length === 0 ?
         <h3>Your cart is empty</h3> : (
             productArray.map(item => {
+              this.total += item.price * item.quantity
               return (
                 <div key={item.id}>
                   <h3>{item.name}</h3>
@@ -87,6 +90,7 @@ class GuestCart extends React.Component {
             })
         )
         }
+        <h5>Cart Total:${this.total}.00</h5>
         <Link to="/guest-checkout">
           <button>Checkout</button>
         </Link>
