@@ -113,7 +113,7 @@ export class SingleProductPage extends React.Component {
   }
 }
 
-const mapState = state => { //
+const mapState = state => {
   return {
     product: state.singleProduct,
     auth: state.auth,
