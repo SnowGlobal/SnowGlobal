@@ -47,72 +47,67 @@ export class AllProducts extends React.Component {
     }
   }
 
-  render() {
-    const products = this.props.products;
-    return (
-      <div>
-        <select
-          className={"select-dropdown"}
-          value={this.state.size}
-          onChange={e => {
-            this.setState({ size: e.target.value });
-          }}
-        >
-          <option value={""}>Select Size</option>
-          <option value="small">Small</option>
-          <option value="medium">Medium</option>
-          <option value="large">Large</option>
-        </select>
-        <h2 className={"all-products-title"}>Shop All Snowglobes</h2>
-        <div className={"all-products"}>
-          {/* <select
+ render() {
+   const products = this.props.products;
+   return (
+     <div className={'all-products-container'}>
+       <h1>Shop All Snowglobes</h1>
+       <select
          value={this.state.category}
          onChange={(e) => {
            this.setState({ category: e.target.value });
          }}
        >
-         <option value={''}>Select Category</option>
-         <option value="holidays">Holidays</option>
-         <option value="travel">Travel</option>
-       </select> */}
-          <div className={"all-products-grid"}>
-            {products
-              .filter(product => {
-                if (this.state.size == "") {
-                  return product;
-                  // update this to product.size whenever we fix the backend
-                } else if (this.state.size == product.category) {
-                  return product;
-                }
-              })
-              .map(product => {
-                return (
-                  <div className={"product-item"} key={product.id}>
-                    <Link to={`/products/${product.id}`}>
-                      <img
-                        className={"product-item-image"}
-                        src={product.imageUrl}
-                      />
-                      <h2 className={"product-item-name"}>{product.name}</h2>
-                      <p className={"all-products-size"}>{product.category}</p>
-                      <p
-                        className={"all-products-price"}
-                      >{`$${product.price}.00`}</p>
-                    </Link>
-                    <button
-                      className={"all-products-button"}
-                      onClick={() => this.handleAddToCart(product.id)}
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                );
-              })}
-          </div>
-        </div>
-      </div>
-    );
-  }
+         <option value={''}>Select Season</option>
+         <option value="fall">Fall</option>
+         <option value="winter">Winter</option>
+       </select>
+       <select
+         value={this.state.size}
+         onChange={(e) => {
+           this.setState({ size: e.target.value });
+         }}
+       >
+         <option value={''}>Select Size</option>
+         <option value="small">Small</option>
+         <option value="medium">Medium</option>
+         <option value="large">Large</option>
+       </select>
+       <div className={'gallery'}>
+         {products
+           .filter((product) => {
+            if (this.state.category == '') {
+               return product;
+             } else if (this.state.category == product.category) {
+               return product;
+             } else if (this.state.size == '') {
+              return product;
+            } else if (this.state.size == product.size) {
+              return product;
+            }
+           })
+           .map((product) => {
+             return (
+               <div className={'content'} key={product.id}>
+                 <Link to={`/products/${product.id}`}>
+                   <img className={'all-products-image'} src={product.imageUrl} />
+                 </Link>
+                 <h2 className={'all-products-name'}>{product.name}</h2>
+                 <div className={'all-product-description-container'}>
+                   <p className={'all-product-description'}>{product.description}</p>
+                 </div>
+                 <p className={'all-products-size'}>{product.size}</p>
+                 <p className={'all-products-price'}>{`$${product.price}.00`}</p>
+                 <button className={'all-products-button'} onClick={() => this.handleAddToCart(product.id)}>
+                   Add to Cart
+                 </button>
+               </div>
+             );
+           })}
+       </div>
+     </div>
+   );
+ }
 }
 
 const mapStateToProps = state => {
