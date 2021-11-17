@@ -41,6 +41,11 @@ module.exports = db.define('products', {
     allowNull: false,
   },
 
+  size: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+
   rating: {
     type: Sequelize.INTEGER,
     allowNull: false,

@@ -52,16 +52,16 @@ export class AllProducts extends React.Component {
    return (
      <div className={'all-products-container'}>
        <h1>Shop All Snowglobes</h1>
-       {/* <select
+       <select
          value={this.state.category}
          onChange={(e) => {
            this.setState({ category: e.target.value });
          }}
        >
-         <option value={''}>Select Category</option>
-         <option value="holidays">Holidays</option>
-         <option value="travel">Travel</option>
-       </select> */}
+         <option value={''}>Select Season</option>
+         <option value="fall">Fall</option>
+         <option value="winter">Winter</option>
+       </select>
        <select
          value={this.state.size}
          onChange={(e) => {
@@ -76,12 +76,15 @@ export class AllProducts extends React.Component {
        <div className={'gallery'}>
          {products
            .filter((product) => {
-             if (this.state.size == '') {
+            if (this.state.category == '') {
                return product;
-               // update this to product.size whenever we fix the backend
-             } else if (this.state.size == product.category) {
+             } else if (this.state.category == product.category) {
                return product;
-             }
+             } else if (this.state.size == '') {
+              return product;
+            } else if (this.state.size == product.size) {
+              return product;
+            }
            })
            .map((product) => {
              return (
@@ -93,7 +96,7 @@ export class AllProducts extends React.Component {
                  <div className={'all-product-description-container'}>
                    <p className={'all-product-description'}>{product.description}</p>
                  </div>
-                 <p className={'all-products-size'}>{product.category}</p>
+                 <p className={'all-products-size'}>{product.size}</p>
                  <p className={'all-products-price'}>{`$${product.price}.00`}</p>
                  <button className={'all-products-button'} onClick={() => this.handleAddToCart(product.id)}>
                    Add to Cart
