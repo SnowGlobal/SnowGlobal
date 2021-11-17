@@ -2,26 +2,49 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleProduct } from '../store/singleProduct';
 import { Link } from "react-router-dom";
+import { addToCart, fetchCart } from "../store/Cart";
 
 export class SingleProductPage extends React.Component {
-  componentDidMount() {
-    this.props.fetchSingleProduct(this.props.match.params.id);
+  constructor(props){
+    super(props);
+    this.state = {
+      quantity: 1
+    }
+
+    this.addToCart = this.addToCart.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  addToCart = (id) => {
+  componentDidMount() {
+    this.props.fetchSingleProduct(this.props.match.params.id);
+    if (this.props.auth.id) {
+      this.props.fetchCart();
+    }
+  }
+
+
+  handleChange(event){
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+  
+  addToCart (event, id){
+    
     event.preventDefault();
+
+    //basic validation
+    if(this.state.quantity > 10){
+      alert("You can only order up to 10 items at a time");
+      return
+    } else if(this.state.quantity < 1){
+      alert("You must order at least 1 item");
+      return
+    }
     //in this if statement check if the user id exists
     if(this.props.auth.id){
-      console.log('hello world i can see you are logged in as ', this.props.auth)
-      //if the user exists, get an array of the user's cart items by id
-      // let idArray = this.props.cart.map(product => product.productId) //pseudocode
-      // if(idArray.includes(id)){
-      //   //if the user's cart already has the item, update the quantity
-      //   this.props.updateQuantity(id) //pseudocode
-      // } else {
-      //   //if the user's cart does not have the item, add the item to the cart
-      //   this.props.addToCart(id) //pseudocode
-      // }
+      this.props.addToCart(id, +this.state.quantity);
+      this.props.history.push('/cart');
     } else {
       //if there is no user, check if there is a localstorage cart
       if(!window.localStorage.cart){
@@ -29,12 +52,23 @@ export class SingleProductPage extends React.Component {
       }
       let cart = JSON.parse(window.localStorage.cart);
       let productInCart = cart.filter(item => item.productId === id)
+      if(productInCart.length > 0){
+        productInCart[0].quantity += +this.state.quantity;
+      } else {
+        cart.push({
+          id,
+          name: this.props.product.name,
+          price: this.props.product.price,
+          quantity: +this.state.quantity
+        });
+      }
+      window.localStorage.cart = JSON.stringify(cart);
+      this.props.history.push('/cart');
     }
   }
 
   render() {
     const { id } = this.props.auth;
-    console.log('this is the auth in the single product', id)
     const { product } = this.props;
     return (
       <div>
@@ -54,11 +88,18 @@ export class SingleProductPage extends React.Component {
             <form>
             <p className='quantity-box'>
               <label htmlFor='quantity'>Quantity: </label>
-              <input className='quantity' type="number" name="quantity" min="1" max="10" defaultValue="1"/>
+              <input
+                className='quantity'
+                type="number"
+                name="quantity"
+                min="1" max="10"
+                defaultValue={this.state.quantity}
+                onChange={this.handleChange}
+              />
             </p>
               <button
                 type="submit"
-                onClick={() => this.addToCart(product.id)}
+                onClick={(event) => this.addToCart(event, product.id)}
               >Add to Cart</button>
             </form>
             <p>{product.description}</p>
@@ -75,13 +116,16 @@ export class SingleProductPage extends React.Component {
 const mapState = state => {
   return {
     product: state.singleProduct,
-    auth: state.auth
+    auth: state.auth,
+    cart: state.cart,
   };
 };
 
 const mapDispatch = dispatch => {
   return {
     fetchSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
+    addToCart: (id, quantity) => dispatch(addToCart(id, quantity)),
+    fetchCart: () => dispatch(fetchCart()),
   };
 };
 

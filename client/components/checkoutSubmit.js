@@ -19,7 +19,6 @@ export class CheckoutSubmit extends React.Component {
   render() {
     const cart = this.props.cart;
     const auth = this.props.auth;
-    console.log(cart);
     return (
       <div>
         <h1>Thank you for your order {auth.firstName}!</h1>

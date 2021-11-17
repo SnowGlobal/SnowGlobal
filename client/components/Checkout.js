@@ -5,6 +5,14 @@ import { deleteProduct } from "../store/Products";
 import { fetchCart } from "../store/Cart";
 import checkoutSubmit, { CheckoutSubmit } from "./checkoutSubmit";
 
+<<<<<<< HEAD
+=======
+///this is not explicitly laid out yet, but presuming
+///the checkout component is being passed several product objects
+//the component should bring you to a confirmation page
+//on submit remove items from db
+
+>>>>>>> 595bd4c4643ac2108c29721ebc553cfb8649ac1b
 export class Checkout extends React.Component {
   constructor(props) {
     super(props);
@@ -27,9 +35,12 @@ export class Checkout extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
     const cart = this.props.cart.products
     console.log(cart);
     this.state.total = 0
+=======
+>>>>>>> 595bd4c4643ac2108c29721ebc553cfb8649ac1b
     return (
       <div>
         <h1>Checkout</h1>
