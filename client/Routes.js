@@ -4,6 +4,7 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import AllProducts from "./components/AllProducts";
 import { Login, Signup } from "./components/AuthForm";
 import LandingPage from "./components/LandingPage";
+import GuestCheckout from "./components/GuestCheckout";
 import Checkout from "./components/Checkout";
 import CheckoutSubmit from "./components/checkoutSubmit";
 import SingleProductPage from "./components/SingleProduct";
@@ -29,12 +30,17 @@ class Routes extends React.Component {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/products" component={AllProducts} />
           <Route exact path="/products/:id" component={SingleProductPage} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/checkout" component={Checkout} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/checkout" component={Checkout} />
+          <Route exact path="/guest-checkout" component={GuestCheckout} />
           <Route exact path="/admin" component={AdminHomePage} />
-          <Route path="/admin/edit/:id" component={AdminEditProductPage} />
+          <Route
+            exact
+            path="/admin/edit/:id"
+            component={AdminEditProductPage}
+          />
           {/* Displays our Login component as a fallback */}
           <Redirect to="/" />
         </Switch>

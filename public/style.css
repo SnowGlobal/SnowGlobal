@@ -17,25 +17,24 @@ body {
 } */
 
 #nav {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
+  display: flex;
   align-items: center;
   height: 50px;
   overflow: hidden;
 }
 
-.navbar img {
-  height: 16px;
-  width: auto;
-  justify-self: start;
-  margin-left: 20px;
+.nav-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f1faee;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  text-align: center;
+  margin-left: 1rem;
 }
 
-ul {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  justify-self: end;
+.nav-title:hover {
+  color: #a8dadc;
 }
 
 .nav-item a {
@@ -48,6 +47,25 @@ ul {
 
 .nav-item a:hover {
   color: #a8dadc;
+}
+
+.cart-btn {
+  background-color: #e63946;
+  color: #f1faee;
+  font-family: "Montserrat", sans-serif;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  align-items: right;
+}
+
+.cart-btn:hover {
+  background-color: #f1faee;
+  color: #e63946;
+  transition: 0.6s;
 }
 
 .promotions {
@@ -126,6 +144,10 @@ a:active {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
+}
+
+.all-products-grid {
+  display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
 }
@@ -134,10 +156,16 @@ a:active {
   .all-products {
     grid-template-columns: repeat(2, 1fr);
   }
+  .all-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 800px) {
   .all-products {
+    grid-template-columns: 1fr;
+  }
+  .all-products-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -474,4 +502,34 @@ section {
   font-size: 1.2em;
   font-weight: bold;
   cursor: pointer;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.select-dropdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }

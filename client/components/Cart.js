@@ -1,12 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import { removeFromCart, fetchCart } from "../store/Cart";
+import { removeFromCart, fetchCart, updateCart } from "../store/Cart";
 import { Link } from "react-router-dom";
+import GuestCart from "./GuestCart";
 
 class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.handleRemove = this.handleRemove.bind(this);
+    this.handleQuantity = this.handleQuantity.bind(this);
   }
 
   async componentDidMount() {
@@ -20,45 +22,70 @@ class Cart extends React.Component {
     await this.props.fetchCart();
   }
 
+  handleQuantity(event) {
+    if (event.target.name === "increment") {
+      //by setting a + in front of the value, we can use parseInt to convert it to an integer
+      this.props.updateCart(event.target.id, +event.target.value + 1);
+    } else {
+      this.props.updateCart(event.target.id, +event.target.value - 1);
+    }
+  }
+
   render() {
-    let CartProducts;
+    let cartProducts;
+
+    if (!this.props.auth.id) {
+      return <GuestCart />;
+    }
     if (!this.props.cart.products || this.props.cart.products.length === 0) {
-      console.log(this.props.cart.products);
       return <div>Cart Empty</div>;
     }
     if (this.props.cart.products.length > 0) {
-      CartProducts = this.props.cart.products.map(item => {
+      cartProducts = this.props.cart.products.map(item => {
+        //by utilizing optional chaining, we can safely access the item quantity
+        let quantity = item.cart_products?.quantity;
         return (
-          <aside className="cart-item" key={item.id}>
-            <div className="cart-item-image">
-              <img src={item.imageUrl} alt={item.name} />
-            </div>
-            <div className="cart-item-info">
-              <div className="cart-item-name">
-                <Link to={`/products/${item.id}`}>{item.name}</Link>
-              </div>
-              <div className="cart-item-price"> {`${item.price}`}</div>
-              <div className="cart-item-quantity">
-                Quantity: {item.quantity}
-              </div>
-              <div className="cart-item-remove">
+          <div key={item.id}>
+            <h3>{item.name}</h3>
+            <h4>
+              {`$`}
+              {item.price} * {quantity} = {`$`} {item.price * quantity}
+            </h4>
+            <p>
+              Total Quantity: {quantity} <br />
+              <span>
                 <button
-                  className="btn-remove-from-cart"
-                  onClick={() => this.handleRemove(item.id)}
+                  onClick={this.handleQuantity}
+                  name="increment"
+                  id={item.id}
+                  className="increment-button"
+                  value={quantity}
                 >
-                  Remove
+                  +
                 </button>
-              </div>
-            </div>
-          </aside>
+                <button
+                  onClick={this.handleQuantity}
+                  name="decrement"
+                  id={item.id}
+                  className="decrement-button"
+                  value={quantity}
+                >
+                  -
+                </button>
+              </span>
+            </p>
+            <button onClick={() => this.handleRemove(item.cart_products.id)}>
+              Remove from Cart
+            </button>
+          </div>
         );
       });
     }
 
     // dont show the checkout button if cart is empty
-    let CheckoutButton;
+    let checkoutButton;
     if (this.props.cart.products.length > 0) {
-      CheckoutButton = (
+      checkoutButton = (
         <Link to="/checkout">
           <button>Checkout</button>
         </Link>
@@ -67,8 +94,8 @@ class Cart extends React.Component {
     return (
       <div>
         <h1>Cart</h1>
-        {CartProducts}
-        {CheckoutButton}
+        {cartProducts}
+        {checkoutButton}
       </div>
     );
   }
@@ -85,6 +112,7 @@ const mapDispatchToProps = dispatch => {
   return {
     removeFromCart: id => dispatch(removeFromCart(id)),
     fetchCart: () => dispatch(fetchCart()),
+    updateCart: (id, quantity) => dispatch(updateCart(id, quantity)),
   };
 };
 

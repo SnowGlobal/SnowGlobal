@@ -1,7 +1,7 @@
 {
   "name": "snowglobal",
   "version": "2.0.0",
-  "description": "Snowglobal Enterprise LLC",
+  "description": "SnowGlobal Enterprise LLC",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
