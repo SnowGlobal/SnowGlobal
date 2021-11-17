@@ -13,9 +13,6 @@ const App = () => {
         <Navbar toggleCart={() => setCartOpen(!cartOpen)} />
         <Routes />
       </div>
-      <div className={cartOpen ? "cartOpen" : "cartHidden"}>
-        <Cart />
-      </div>
     </div>
   );
 };

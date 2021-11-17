@@ -4,12 +4,43 @@ import { connect } from "react-redux";
 
 const LandingPage = props => {
   return (
-    <div>
-      <h1>SnowGlobal</h1>
-      <h2>Worlds #1 Dumb big Snow Globe Store</h2>
-      <Link to="/products">
-        <button>View Products</button>
-      </Link>
+    <div className={"promotions"}>
+      <div
+        className={"promo-item"}
+        style={{ backgroundImage: `url(/login.jpg)` }}
+      >
+        <div className={"promo-item-inner"}>
+          <div>
+            <Link to={"/Login"}>
+              <h1>Login</h1>
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div
+        className={"promo-item"}
+        style={{ backgroundImage: `url(/allproductsglobe.jpg)` }}
+      >
+        <div className={"promo-item-inner"}>
+          <div>
+            <Link to={"/products"}>
+              <h1>ALL GLOBES</h1>
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div
+        className={"promo-item"}
+        style={{ backgroundImage: `url(/signup.jpg)` }}
+      >
+        <div className={"promo-item-inner"}>
+          <div>
+            <Link to={"/signup"}>
+              <h1>SIGN UP</h1>
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

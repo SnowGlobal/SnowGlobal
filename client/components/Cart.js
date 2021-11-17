@@ -23,7 +23,7 @@ class Cart extends React.Component {
   }
 
   handleQuantity(event) {
-    if(event.target.name === "increment") {
+    if (event.target.name === "increment") {
       //by setting a + in front of the value, we can use parseInt to convert it to an integer
       this.props.updateCart(event.target.id, +event.target.value + 1);
     } else {
@@ -34,8 +34,8 @@ class Cart extends React.Component {
   render() {
     let cartProducts;
 
-    if (!this.props.auth.id){
-      return <GuestCart />
+    if (!this.props.auth.id) {
+      return <GuestCart />;
     }
     if (!this.props.cart.products || this.props.cart.products.length === 0) {
       return <div>Cart Empty</div>;
@@ -43,7 +43,7 @@ class Cart extends React.Component {
     if (this.props.cart.products.length > 0) {
       cartProducts = this.props.cart.products.map(item => {
         //by utilizing optional chaining, we can safely access the item quantity
-        let quantity = item.cart_products?.quantity
+        let quantity = item.cart_products?.quantity;
         return (
           <div key={item.id}>
             <h3>{item.name}</h3>
@@ -59,15 +59,19 @@ class Cart extends React.Component {
                   name="increment"
                   id={item.id}
                   className="increment-button"
-                  value = {quantity}
-                >+</button>
+                  value={quantity}
+                >
+                  +
+                </button>
                 <button
                   onClick={this.handleQuantity}
                   name="decrement"
                   id={item.id}
                   className="decrement-button"
-                  value = {quantity}
-                >-</button>
+                  value={quantity}
+                >
+                  -
+                </button>
               </span>
             </p>
             <button onClick={() => this.handleRemove(item.cart_products.id)}>
@@ -77,6 +81,7 @@ class Cart extends React.Component {
         );
       });
     }
+
     // dont show the checkout button if cart is empty
     let checkoutButton;
     if (this.props.cart.products.length > 0) {
