@@ -5,20 +5,41 @@ import { fetchProducts } from "../store/Products"
 class GuestCart extends React.Component {
   constructor(props){
     super(props);
+
+    this.state = {
+      something: "something"
+    }
+    this.handleQuantity = this.handleQuantity.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   componentDidMount(){
     this.props.fetchProducts();
   }
 
-  handleQuantity(){
-    React.Component.forceUpdate(callback)
+  handleQuantity(event){
+    let productArray = JSON.parse(window.localStorage.getItem("cart"));
+    let id = event.target.id;
+
+    productArray.forEach(item => {
+      if(+item.id === +id){
+        if(event.target.name === 'increment'){
+          item.quantity += 1;
+        } else {
+          item.quantity -= 1;
+        }
+      }
+    });
+    productArray = productArray.filter(item => +item.quantity > 0);
+    window.localStorage.setItem("cart", JSON.stringify(productArray));
+    this.forceUpdate();
   }
 
-  handleRemove(){
-    window.localStorage.clear();
-    this.forceUpdate()
-
+  handleRemove(id){
+    let productArray = JSON.parse(window.localStorage.getItem("cart"));
+    productArray = productArray.filter(item => item.id !== id);
+    window.localStorage.setItem("cart", JSON.stringify(productArray));
+    this.forceUpdate();
   }
 
   render(){
