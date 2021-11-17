@@ -6,7 +6,7 @@ const {
 const requireToken = async (req, res, next) => {
   const { authorization } = req.headers;
   const user = await User.findByToken(authorization);
-  if(user) {
+  if (user) {
     req.user = user;
     next();
   } else {
@@ -21,6 +21,22 @@ router.get("/", requireToken, async (req, res, next) => {
       include: [{ model: Products }],
     });
     res.send(cart);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.delete("/", requireToken, async (req, res, next) => {
+  try {
+    if (req.user) {
+      let cart = await Cart.findOne({
+        where: { userId: req.user.id },
+      });
+      await cart.destroy();
+      res.send(cart);
+    } else {
+      res.sendStatus(401);
+    }
   } catch (e) {
     next(e);
   }
@@ -90,10 +106,10 @@ router.put("/:productId", requireToken, async (req, res, next) => {
     let cart = await Cart.findOne({
       where: { userId: req.user.id },
       include: [{ model: Products }],
-    })
+    });
     let cartProduct = await CartProducts.findOne({
       where: { CartId: cart.id, productId: product.id },
-    })
+    });
     cartProduct.quantity = req.body.quantity;
     await cartProduct.save();
 
@@ -101,7 +117,7 @@ router.put("/:productId", requireToken, async (req, res, next) => {
     cart = await Cart.findOne({
       where: { userId: req.user.id },
       include: [{ model: Products }],
-    })
+    });
 
     res.send(cart);
   } catch (e) {

@@ -13,6 +13,7 @@ import AdminHomePage from "./components/AdminHomePage";
 import AdminEditProductPage from "./components/AdminEditProductPage";
 import { me } from "./store/auth";
 
+
 /**
  * COMPONENT
  */
@@ -35,6 +36,7 @@ class Routes extends React.Component {
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/guest-checkout" component={GuestCheckout} />
+          <Route path="/checkout-submit" component={CheckoutSubmit}/>
           <Route exact path="/admin" component={AdminHomePage} />
           <Route
             exact
