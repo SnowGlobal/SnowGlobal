@@ -31,14 +31,18 @@ class Routes extends React.Component {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/products" component={AllProducts} />
           <Route exact path="/products/:id" component={SingleProductPage} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/checkout" component={Checkout} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/checkout" component={Checkout} />
+          <Route exact path="/guest-checkout" component={GuestCheckout} />
           <Route path="/checkout-submit" component={CheckoutSubmit}/>
-          <Route path="/guest-checkout" component={GuestCheckout} />
           <Route exact path="/admin" component={AdminHomePage} />
-          <Route path="/admin/edit/:id" component={AdminEditProductPage} />
+          <Route
+            exact
+            path="/admin/edit/:id"
+            component={AdminEditProductPage}
+          />
           {/* Displays our Login component as a fallback */}
           <Redirect to="/" />
         </Switch>

@@ -23,7 +23,7 @@ class Cart extends React.Component {
   }
 
   handleQuantity(event) {
-    if(event.target.name === "increment") {
+    if (event.target.name === "increment") {
       //by setting a + in front of the value, we can use parseInt to convert it to an integer
       this.props.updateCart(event.target.id, +event.target.value + 1);
     } else {
@@ -35,8 +35,8 @@ class Cart extends React.Component {
     let productTotal = 0
     let cartProducts;
 
-    if (!this.props.auth.id){
-      return <GuestCart />
+    if (!this.props.auth.id) {
+      return <GuestCart />;
     }
     if (!this.props.cart.products || this.props.cart.products.length === 0) {
       return <div>Cart Empty</div>;
@@ -64,15 +64,19 @@ class Cart extends React.Component {
                   name="increment"
                   id={item.id}
                   className="increment-button"
-                  value = {quantity}
-                >+</button>
+                  value={quantity}
+                >
+                  +
+                </button>
                 <button
                   onClick={this.handleQuantity}
                   name="decrement"
                   id={item.id}
                   className="decrement-button"
-                  value = {quantity}
-                >-</button>
+                  value={quantity}
+                >
+                  -
+                </button>
               </span>
             </p>
             <button onClick={() => this.handleRemove(item.cart_products.id)}>
@@ -83,6 +87,7 @@ class Cart extends React.Component {
         );
       });
     }
+
     // dont show the checkout button if cart is empty
     let checkoutButton;
     if (this.props.cart.products.length > 0) {
