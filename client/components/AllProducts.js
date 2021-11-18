@@ -81,13 +81,16 @@ export class AllProducts extends React.Component {
           <div className={"all-products-grid"}>
             {products
               .filter(product => {
-                if (this.state.category == "") {
+                if (this.state.category === "") {
                   return product;
-                } else if (this.state.category == product.category) {
+                } else if (this.state.category === product.category) {
                   return product;
-                } else if (this.state.size == "") {
+                }
+              })
+              .filter(product => {
+                if (this.state.size === "") {
                   return product;
-                } else if (this.state.size == product.size) {
+                } else if (this.state.size === product.size) {
                   return product;
                 }
               })
