@@ -32,7 +32,7 @@ class Cart extends React.Component {
   }
 
   render() {
-    let productTotal = 0
+    let productTotal = 0;
     let cartProducts;
 
     if (!this.props.auth.id) {
@@ -44,45 +44,49 @@ class Cart extends React.Component {
     if (this.props.cart.products.length > 0) {
       cartProducts = this.props.cart.products.map(item => {
         //by utilizing optional chaining, we can safely access the item quantity
-        let quantity = item.cart_products?.quantity
+        let quantity = item.cart_products?.quantity;
 
-
-        productTotal  += item.price * item.cart_products.quantity
+        productTotal += item.price * item.cart_products.quantity;
 
         return (
-          <div key={item.id}>
-            <h3>{item.name}</h3>
-            <h4>
-              {`$`}
-              {item.price} * {quantity} = {`$`} {item.price * quantity}
-            </h4>
-            <p>
-              Total Quantity: {quantity} <br />
-              <span>
-                <button
-                  onClick={this.handleQuantity}
-                  name="increment"
-                  id={item.id}
-                  className="increment-button"
-                  value={quantity}
-                >
-                  +
-                </button>
-                <button
-                  onClick={this.handleQuantity}
-                  name="decrement"
-                  id={item.id}
-                  className="decrement-button"
-                  value={quantity}
-                >
-                  -
-                </button>
-              </span>
-            </p>
-            <button onClick={() => this.handleRemove(item.cart_products.id)}>
+          <div key={item.id} className={"cart-item"}>
+            <div className={"cart-item-info"}>
+              <h3>{item.name}</h3>
+              <h4 className={"cart-item-price"}>
+                {`$`}
+                {item.price} * {quantity} = {`$`} {item.price * quantity}
+              </h4>
+              <p className={"cart-item-price"}>
+                Total Quantity: {quantity} <br />
+                <span>
+                  <button
+                    onClick={this.handleQuantity}
+                    name="increment"
+                    id={item.id}
+                    className="increment-button"
+                    value={quantity}
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={this.handleQuantity}
+                    name="decrement"
+                    id={item.id}
+                    className="decrement-button"
+                    value={quantity}
+                  >
+                    -
+                  </button>
+                </span>
+              </p>
+            </div>
+            <button
+              className={"btn-remove-from-cart"}
+              onClick={() => this.handleRemove(item.cart_products.id)}
+            >
               Remove from Cart
             </button>
-            <h5>Total: ${productTotal}.00</h5>
+            <h5>Total: {`${productTotal}.00`}</h5>
           </div>
         );
       });

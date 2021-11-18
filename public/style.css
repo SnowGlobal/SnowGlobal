@@ -56,10 +56,11 @@ body {
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: bold;
   cursor: pointer;
   align-items: right;
+  margin-right: 1rem;
 }
 
 .cart-btn:hover {
@@ -191,6 +192,21 @@ a:active {
   background-size: cover;
   background-position: center;
   padding: 10px 20px;
+}
+
+.all-products-select {
+  background-color: #e63946;
+  color: #f1faee;
+  font-family: "Montserrat", sans-serif;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  align-items: flex-end;
+  margin-bottom: 30px;
+  margin-right: 5px;
 }
 
 button {
@@ -476,8 +492,9 @@ section {
 }
 
 .cart-item-price {
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-weight: bold;
+  color: #f1faee;
 }
 
 .cart-item-quantity {
