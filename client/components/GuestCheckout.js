@@ -8,6 +8,7 @@ class GuestCheckout extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.props.history.push("/checkout-submit");
   }
 
   render() {
